@@ -8,6 +8,16 @@ if (!isset($_SESSION['username'])) {
     $newURL = "index.php";
     header('Location: ' . $newURL);
 }
+$q = "SELECT max(id) FROM workshop;";
+$result = $conn->query($q);
+if ($result->num_rows > 0) {
+    $ws_id_arr = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $ws_id_ex = $ws_id_arr[0];
+    $ws_count = $ws_id_ex["max(id)"];
+
+    $_SESSION["ws_count"] = $ws_count;
+    // print_r($ws_id_ex);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,27 +47,20 @@ if (!isset($_SESSION['username'])) {
             margin: 4px 2px;
             cursor: pointer;
         }
+
+        .summary {
+            text-align: left;
+            font-size: 16px;
+        }
     </style>
 </head>
 
 <body>
-
-
-    <?php
-    function abc()
-    {
-
-        echo "hello";
-    }
-    ?>
-
     <div class="container">
-
-
         <div class="step">
             Logged in as <?php echo  $_SESSION['username']; ?>
         </div>
-        <header>New Workshop</header>
+        <header>New Workshop -<?php echo $_SESSION["ws_count"] ?></header>
 
         <div class="progress-bar">
             <div class="step">
@@ -189,7 +192,7 @@ if (!isset($_SESSION['username'])) {
                     </div>
                     <div class="field">
                         <div class="label">Type</div>
-                        <select id="lab_type" name="lab_type" onChange="addSession()">
+                        <select id="lab_type" name="lab_type">
                             <option value="Mahindodaya">Mahindodaya </option>
                             <option value="Other">Other </option>
 
@@ -198,7 +201,7 @@ if (!isset($_SESSION['username'])) {
 
                     <div class="field btns">
                         <button class="prev-2 prev">Previous</button>
-                        <button class="next-2 next">Next</button>
+                        <button class="next-2 next" onclick="addTemp()">Next</button>
                     </div>
                 </div>
                 <!-- <div class="page">
@@ -239,39 +242,16 @@ if (!isset($_SESSION['username'])) {
 
                 <div class="page">
                     <div class="title">Workshop Details:</div>
-                    <div class="field">
-                        <div class="label">Place :</div>
-                        <?php
-                        if (isset($_SESSION['username'])) {
-                            echo "<br/>";
-                            echo "District " . $_SESSION['district'];
-                            echo "<br/>";
-                            echo "Zone " . $_SESSION['zone'];
-                            echo "<br/>";
-                            echo "School :  " . $_SESSION['sch'];
-                            echo "<br/>";
-                            echo "<br/>";
-                        }
-                        ?>
-                    </div>
-                    <div class="field">
 
-
-                    </div>
-                    <div class="field">
-                        <div class="label">Additional :</div>
-                        <?php
-                        if (isset($_SESSION['username'])) {
-                            echo "<br/>";
-                            echo "Workshop Level " . $_SESSION['ws_level'];
-                            echo "<br/>";
-                            echo "Expenditure source " . $_SESSION['expType'];
-                            echo "<br/>";
-                            echo "Expenditure Value : " . $_SESSION['exp_val'];
-                        }
-                        ?>
-                    </div>
-
+                    <div class="summary" id="ws_id_div"></div>
+                    <div class="summary" id="dis"></div>
+                    <div class="summary" id="zone_div"></div>
+                    <div class="summary" id="sch_div"></div>
+                    <div class="summary" id="ws_level_div"></div>
+                    <div class="summary" id="exp_div"></div>
+                    <div class="summary" id="allocated_div"></div>
+                    <div class="summary" id="date_div"></div>
+                    <div class="summary" id="lab_type_div"></div>
                     <div class="field btns">
                         <button class="prev-5 prev">Previous</button>
                         <button class="submit">Submit</button>

@@ -129,33 +129,105 @@ function loadSchool() {
                 }
             });    
 }
-function addSession() {
+// function addSession() {
 
-    var selectScl = document.getElementById("school");
-    var sch = selectScl.options[selectScl.selectedIndex].text;
+//     var selectScl = document.getElementById("school");
+//     var sch = selectScl.options[selectScl.selectedIndex].text;
     
-    var dateArr=$('#ws_date').val().split('/');
-    var date=dateArr[0];
+//     var dateArr=$('#ws_date').val().split('/');
+//     var date=dateArr[0];
         
-    var select = document.getElementById("ws_level");
-    var ws_level = select.options[select.selectedIndex].text;
+//     var select = document.getElementById("ws_level");
+//     var ws_level = select.options[select.selectedIndex].text;
 
-    var select_exp= document.getElementById("expend_source");
-    var exp = select_exp.options[select_exp.selectedIndex].text;
+//     var select_exp= document.getElementById("expend_source");
+//     var exp = select_exp.options[select_exp.selectedIndex].text;
 
-    // var exp_value=document.getElementById("allocated_amount").text;
-    var exp_val=$('#allocated_amount').val();
-    alert(exp_val);
-            $.ajax({
-                url: "addSession.php",
-                type: "POST",
-                data: {
-                    sch:sch,
-                    ws_level: ws_level,
-                    exp: exp,
-                    date:date,
-                    exp_val:exp_val
-                }
-            });    
+//     // var exp_value=document.getElementById("allocated_amount").text;
+//     var exp_val=$('#allocated_amount').val();
+//     alert(exp_val);
+//             $.ajax({
+//                 url: "addSession.php",
+//                 type: "POST",
+//                 data: {
+//                     sch:sch,
+//                     ws_level: ws_level,
+//                     exp: exp,
+//                     date:date,
+//                     exp_val:exp_val
+//                 }
+//             });    
             
+// }
+
+function addTemp() {
+
+    select_district=document.getElementById("district");
+    district=select_district.options[select_district.selectedIndex].text;
+
+    select_zone=document.getElementById("zone");
+    zone=select_zone.options[select_zone.selectedIndex].text;
+
+    ws_dis=district.substring(0,2);
+    ws_zone=zone.substring(0,2);
+
+    selectScl = document.getElementById("school");
+    sch = selectScl.options[selectScl.selectedIndex].text;
+   
+    dateArr=$('#ws_date').val().split('/');
+    date=dateArr[0];
+    
+
+    select = document.getElementById("ws_level");
+    ws_level = select.options[select.selectedIndex].text;
+
+    select_exp= document.getElementById("expend_source");
+    exp = select_exp.options[select_exp.selectedIndex].text;
+    
+   // var exp_value=document.getElementById("allocated_amount").text;
+    exp_val=$('#allocated_amount').val();
+
+  
+           $.ajax({
+               url: "addSession.php",
+               type: "POST",
+               data: {
+                   
+                   sch:sch,
+                   ws_level: ws_level,
+                   exp: exp,
+                   date:date,
+                   exp_val:exp_val
+               }
+               
+           });
+
+          
+           id_dis=district.substring(0,3);
+           id_zone=zone.substring(0,3)
+           year=date.split("-");
+           ws_id=year[0]+"/"+id_dis+"/"+id_zone+"here add the workshop no";
+           
+           school =sch;
+           ws_level =ws_level;
+           expType = exp;
+           date = date;
+           expVal=exp_val;
+
+           // document.getElementById("last_lable").innerHTML(school);
+           
+           $("#ws_id_div").text("Work shop Id : "+ws_id);
+           $("#user_div").text("ws level : "+ws_level);
+
+           $("#dis_div").text("ws level : "+ws_level);
+           $("#zone_div").text("ws level : "+ws_level);
+           $("#sch_div").text("school : "+sch);
+           $("#ws_level_div").text("Leval : "+ws_level);
+           $("#exp_div_div").text("Expenditure : "+exp);
+           $("#allocated_div").text("Allocated amt : "+ws_level);
+           $("#date_div").text("Date : "+date);
+           $("#lab_type_div").text("Lab Type : "+ws_level);
+
+
+           
 }
