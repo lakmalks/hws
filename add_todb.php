@@ -1,10 +1,6 @@
 <?php
 include("conn.php");
 
-
-
-
-
 $device = $_POST["device"];
 $brand = $_POST["brand"];
 $mfd = $_POST["mfd"];

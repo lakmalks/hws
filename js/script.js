@@ -31,9 +31,8 @@ function initMultiStepForm() {
             // inputsValid = true;
 
             if (inputsValid) {
-                slidePage.style.marginLeft = `-${
-                    (100 / stepsNumber) * current
-                }%`;
+                slidePage.style.marginLeft = `-${(100 / stepsNumber) * current
+                    }%`;
                 bullet[current - 1].classList.add("active");
                 progressCheck[current - 1].classList.add("active");
                 progressText[current - 1].classList.add("active");
@@ -45,9 +44,8 @@ function initMultiStepForm() {
     for (let i = 0; i < prevButtons.length; i++) {
         prevButtons[i].addEventListener("click", function (event) {
             event.preventDefault();
-            slidePage.style.marginLeft = `-${
-                (100 / stepsNumber) * (current - 2)
-            }%`;
+            slidePage.style.marginLeft = `-${(100 / stepsNumber) * (current - 2)
+                }%`;
             bullet[current - 2].classList.remove("active");
             progressCheck[current - 2].classList.remove("active");
             progressText[current - 2].classList.remove("active");
@@ -55,10 +53,10 @@ function initMultiStepForm() {
         });
     }
     submitBtn.addEventListener("click", function () {
-        location.replace("workshopInfo.php");
-            alert("Your Form Successfully Signed up");
-            
-        
+        // location.replace("workshopInfo.php");
+        // alert("Your Form Successfully Signed up");
+
+
     });
 
     function validateInputs(ths) {
@@ -93,50 +91,50 @@ function initMultiStepForm() {
         }
         return inputsValid;
     }
-    
+
 }
 function loadZone() {
     var select = document.getElementById("district");
     var district = select.options[select.selectedIndex].text;
-        
-            $.ajax({
-                url: "func.php",
-                type: "POST",
-                data: {
-                    district: district
-                },
-                cache: false,
-                success: function(result) {
-                    $("#zone").html(result);
-                    // alert(result);
-                }
-            });    
+
+    $.ajax({
+        url: "func.php",
+        type: "POST",
+        data: {
+            district: district
+        },
+        cache: false,
+        success: function (result) {
+            $("#zone").html(result);
+            // alert(result);
+        }
+    });
 }
 function loadSchool() {
     var select = document.getElementById("zone");
     var zone = select.options[select.selectedIndex].text;
-        
-            $.ajax({
-                url: "loadSch.php",
-                type: "POST",
-                data: {
-                    zone: zone
-                },
-                cache: false,
-                success: function(result) {
-                    $("#school").html(result);
-                    // alert(result);
-                }
-            });    
+
+    $.ajax({
+        url: "loadSch.php",
+        type: "POST",
+        data: {
+            zone: zone
+        },
+        cache: false,
+        success: function (result) {
+            $("#school").html(result);
+            // alert(result);
+        }
+    });
 }
 // function addSession() {
 
 //     var selectScl = document.getElementById("school");
 //     var sch = selectScl.options[selectScl.selectedIndex].text;
-    
+
 //     var dateArr=$('#ws_date').val().split('/');
 //     var date=dateArr[0];
-        
+
 //     var select = document.getElementById("ws_level");
 //     var ws_level = select.options[select.selectedIndex].text;
 
@@ -157,77 +155,101 @@ function loadSchool() {
 //                     exp_val:exp_val
 //                 }
 //             });    
-            
+
 // }
 
 function addTemp() {
 
-    select_district=document.getElementById("district");
-    district=select_district.options[select_district.selectedIndex].text;
+    select_district = document.getElementById("district");
+    district = select_district.options[select_district.selectedIndex].text;
 
-    select_zone=document.getElementById("zone");
-    zone=select_zone.options[select_zone.selectedIndex].text;
+    select_zone = document.getElementById("zone");
+    zone = select_zone.options[select_zone.selectedIndex].text;
 
-    ws_dis=district.substring(0,2);
-    ws_zone=zone.substring(0,2);
+    ws_dis = district.substring(0, 2);
+    ws_zone = zone.substring(0, 2);
 
     selectScl = document.getElementById("school");
     sch = selectScl.options[selectScl.selectedIndex].text;
-   
-    dateArr=$('#ws_date').val().split('/');
-    date=dateArr[0];
-    
+
+    dateArr = $('#ws_date').val().split('/');
+    date = dateArr[0];
+
 
     select = document.getElementById("ws_level");
     ws_level = select.options[select.selectedIndex].text;
 
-    select_exp= document.getElementById("expend_source");
+    select_exp = document.getElementById("expend_source");
     exp = select_exp.options[select_exp.selectedIndex].text;
+
+    // var exp_value=document.getElementById("allocated_amount").text;
+    exp_val = $('#allocated_amount').val();
+    ws_count = $('#ws_coun').val();
+alert(ws_coun);
+    id_dis = district.substring(0, 3);
+    id_zone = zone.substring(0, 3)
+    year = date.split("-");
+    ws_id = year[0] + "/" + id_dis + "/" + id_zone +"/"+ws_count;
+
     
-   // var exp_value=document.getElementById("allocated_amount").text;
-    exp_val=$('#allocated_amount').val();
+    school = sch;
+    ws_level = ws_level;
+    expType = exp;
+    date = date;
+    expVal = exp_val;
 
-  
-           $.ajax({
-               url: "addSession.php",
-               type: "POST",
-               data: {
-                   
-                   sch:sch,
-                   ws_level: ws_level,
-                   exp: exp,
-                   date:date,
-                   exp_val:exp_val
-               }
-               
-           });
+    // document.getElementById("last_lable").innerHTML(school);
 
-          
-           id_dis=district.substring(0,3);
-           id_zone=zone.substring(0,3)
-           year=date.split("-");
-           ws_id=year[0]+"/"+id_dis+"/"+id_zone+"here add the workshop no";
-           
-           school =sch;
-           ws_level =ws_level;
-           expType = exp;
-           date = date;
-           expVal=exp_val;
+    $("#ws_id_div").text("Work shop Id : " + ws_id);
+    $("#user_div").text("ws level : " + ws_level);
 
-           // document.getElementById("last_lable").innerHTML(school);
-           
-           $("#ws_id_div").text("Work shop Id : "+ws_id);
-           $("#user_div").text("ws level : "+ws_level);
-
-           $("#dis_div").text("ws level : "+ws_level);
-           $("#zone_div").text("ws level : "+ws_level);
-           $("#sch_div").text("school : "+sch);
-           $("#ws_level_div").text("Leval : "+ws_level);
-           $("#exp_div_div").text("Expenditure : "+exp);
-           $("#allocated_div").text("Allocated amt : "+ws_level);
-           $("#date_div").text("Date : "+date);
-           $("#lab_type_div").text("Lab Type : "+ws_level);
+    $("#dis_div").text("District : : " + ws_level);
+    $("#zone_div").text("Zone : " + ws_level);
+    $("#sch_div").text("school : " + sch);
+    $("#ws_level_div").text("Level : " + ws_level);
+    $("#exp_div_div").text("Expenditure : " + expVal);
+    $("#allocated_div").text("Allocated amt : " + ws_level);
+    $("#date_div").text("Date : " + date);
+    $("#lab_type_div").text("Lab Type : " + ws_level);
 
 
-           
+
+}
+
+function addTempToVar(){
+    addTemp() ;
+    $.ajax({
+        url: "addSession.php",
+        type: "POST",
+        data: {
+            ws_id:ws_id,
+            district:district,
+            zone:zone,
+            sch: sch,
+            ws_level: ws_level,
+            
+            exp: exp,
+            date: date,
+            exp_val: exp_val
+        }
+
+    });
+}
+function addTempToDb(){
+    addTemp() ;
+    $.ajax({
+        url: "add_ws_db.php",
+        type: "POST",
+        data: {
+            ws_id:ws_id,
+            district:district,
+            zone:zone,
+            sch: sch,
+            ws_level: ws_level,
+            exp: exp,
+            date: date,
+            exp_val: exp_val
+        }
+
+    });
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2022 at 08:49 PM
+-- Generation Time: Aug 21, 2022 at 09:51 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -81,7 +81,15 @@ INSERT INTO `job` (`job_id`, `ws_id`, `device`, `brand`, `mfd`, `ecv`, `inventor
 (11, '202205', 'Network', 'Samsung', '', '', '', '', 'abc', 'replaced', 0),
 (12, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'repaired', 0),
 (13, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'guided', 0),
-(14, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'guided', 0);
+(14, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'guided', 0),
+(15, '202205', 'UPS', 'Samsung', '2022-08-10', '44', '100', '100', 'def', 'repaired', 0),
+(16, '202205', 'UPS', 'Samsung', '2022-08-10', '44', '100', '100', 'def', 'repaired', 0),
+(17, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'replaced', 0),
+(18, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'repaired', 0),
+(19, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'repaired', 0),
+(20, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'repaired', 0),
+(21, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'repaired', 0),
+(22, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'repaired', 0);
 
 -- --------------------------------------------------------
 
@@ -99,7 +107,8 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`username`, `password`) VALUES
-('admin', '123');
+('admin', '123'),
+('user', '456');
 
 -- --------------------------------------------------------
 
@@ -10405,18 +10414,34 @@ INSERT INTO `user` (`username`, `name`, `nic`, `mobile`, `workplace`, `position`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wrokshop`
+-- Table structure for table `workshop`
 --
 
-CREATE TABLE `wrokshop` (
+CREATE TABLE `workshop` (
+  `id` int(11) NOT NULL,
   `ws_id` varchar(10) NOT NULL,
-  `place` int(4) NOT NULL,
-  `level` int(4) NOT NULL,
+  `district` varchar(16) NOT NULL,
+  `zone` varchar(16) NOT NULL,
+  `sch` varchar(16) NOT NULL,
+  `level` varchar(16) NOT NULL,
   `coordinator` varchar(10) NOT NULL,
   `allocate` float NOT NULL,
   `expense` float NOT NULL,
-  `date` varchar(16) NOT NULL
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `workshop`
+--
+
+INSERT INTO `workshop` (`id`, `ws_id`, `district`, `zone`, `sch`, `level`, `coordinator`, `allocate`, `expense`, `date`) VALUES
+(1, 'tes/tes/01', 'Matale', 'Galewela', '1001', '9999', 'test_coor', 9999, 9999, '2022-08-08'),
+(2, 'tes/tes/02', 'Colombo', 'Colombo', '1', '8888', 'test_coor', 9999, 9999, '2022-08-01'),
+(3, '', '', '', '', '0', '', 0, 0, '0000-00-00'),
+(4, '2022/Mon/B', 'Monaragala', 'Bibile', '', '0', '', 0, 0, '0000-00-00'),
+(5, '2022/Col/C', 'Colombo', 'Colombo', '9', '0', '', 0, 2022, '0000-00-00'),
+(6, '2022/Col/P', 'Colombo', 'Piliyandala', '103', '0', 'admin', 0, 2022, '0000-00-00'),
+(7, '2022/Gam/K', 'Gampaha', 'Kelaniya', '1012', '0', 'admin', 0, 2022, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -10492,10 +10517,10 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`username`);
 
 --
--- Indexes for table `wrokshop`
+-- Indexes for table `workshop`
 --
-ALTER TABLE `wrokshop`
-  ADD PRIMARY KEY (`ws_id`);
+ALTER TABLE `workshop`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -10511,7 +10536,7 @@ ALTER TABLE `device`
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `models`
@@ -10530,6 +10555,12 @@ ALTER TABLE `order_part`
 --
 ALTER TABLE `r_parts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `workshop`
+--
+ALTER TABLE `workshop`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

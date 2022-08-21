@@ -60,8 +60,9 @@ if ($result->num_rows > 0) {
         <div class="step">
             Logged in as <?php echo  $_SESSION['username']; ?>
         </div>
-        <header>New Workshop -<?php echo $_SESSION["ws_count"] ?></header>
-
+        <header>New Workshop 
+        <div id="ws_coun"><?php echo $_SESSION["ws_count"] ?></div>
+        </header>
         <div class="progress-bar">
             <div class="step">
                 <p>Place</p>
@@ -201,7 +202,7 @@ if ($result->num_rows > 0) {
 
                     <div class="field btns">
                         <button class="prev-2 prev">Previous</button>
-                        <button class="next-2 next" onclick="addTemp()">Next</button>
+                        <button class="next-2 next" onclick="addTempToVar()">Next</button>
                     </div>
                 </div>
                 <!-- <div class="page">
@@ -252,9 +253,10 @@ if ($result->num_rows > 0) {
                     <div class="summary" id="allocated_div"></div>
                     <div class="summary" id="date_div"></div>
                     <div class="summary" id="lab_type_div"></div>
+
                     <div class="field btns">
                         <button class="prev-5 prev">Previous</button>
-                        <button class="submit">Submit</button>
+                        <button type="button" class="submit" onclick="addTempToDb()">Submit</button>
                     </div>
                 </div>
             </form>
