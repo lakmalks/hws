@@ -108,7 +108,7 @@ if ($result->num_rows > 0) {
             </div>
         </div>
         <div class="form-outer">
-            <form action="#">
+            <form >
 
 
                 <div class="page slide-page">
@@ -256,7 +256,7 @@ if ($result->num_rows > 0) {
 
                     <div class="field btns">
                         <button class="prev-5 prev">Previous</button>
-                        <button type="button" class="submit" onclick="addTempToDb()">Submit</button>
+                        <button type="button" class="submit_b" onclick="addTempToDb()">Submit</button>
                     </div>
                 </div>
             </form>

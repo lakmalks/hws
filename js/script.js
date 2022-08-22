@@ -4,7 +4,7 @@ initMultiStepForm();
 function initMultiStepForm() {
     const progressNumber = document.querySelectorAll(".step").length;
     const slidePage = document.querySelector(".slide-page");
-    const submitBtn = document.querySelector(".submit");
+    const submitBtn = document.querySelector(".submit_b");
     const progressText = document.querySelectorAll(".step p");
     const progressCheck = document.querySelectorAll(".step .check");
     const bullet = document.querySelectorAll(".step .bullet");
@@ -52,12 +52,13 @@ function initMultiStepForm() {
             current -= 1;
         });
     }
-    submitBtn.addEventListener("click", function () {
-        // location.replace("workshopInfo.php");
-        // alert("Your Form Successfully Signed up");
+    // submitBtn.addEventListener("click", function () {
+    //     location.replace("workshopInfo.php");
+       
+    
+    // });
 
 
-    });
 
     function validateInputs(ths) {
         let inputsValid = true;
@@ -184,14 +185,13 @@ function addTemp() {
 
     // var exp_value=document.getElementById("allocated_amount").text;
     exp_val = $('#allocated_amount').val();
-    ws_count = $('#ws_coun').val();
-alert(ws_coun);
+    ws_count = $('#ws_coun').text();
     id_dis = district.substring(0, 3);
     id_zone = zone.substring(0, 3)
     year = date.split("-");
-    ws_id = year[0] + "/" + id_dis + "/" + id_zone +"/"+ws_count;
+    ws_id = year[0] + "/" + id_dis + "/" + id_zone + "/" + ws_count;
 
-    
+
     school = sch;
     ws_level = ws_level;
     expType = exp;
@@ -216,18 +216,18 @@ alert(ws_coun);
 
 }
 
-function addTempToVar(){
-    addTemp() ;
+function addTempToVar() {
+    addTemp();
     $.ajax({
         url: "addSession.php",
         type: "POST",
         data: {
-            ws_id:ws_id,
-            district:district,
-            zone:zone,
+            ws_id: ws_id,
+            district: district,
+            zone: zone,
             sch: sch,
             ws_level: ws_level,
-            
+
             exp: exp,
             date: date,
             exp_val: exp_val
@@ -235,21 +235,27 @@ function addTempToVar(){
 
     });
 }
-function addTempToDb(){
-    addTemp() ;
+function addTempToDb() {
+    addTemp();
     $.ajax({
         url: "add_ws_db.php",
         type: "POST",
         data: {
-            ws_id:ws_id,
-            district:district,
-            zone:zone,
+            ws_id: ws_id,
+            district: district,
+            zone: zone,
             sch: sch,
             ws_level: ws_level,
             exp: exp,
             date: date,
             exp_val: exp_val
+        },
+        success: function(response){
+            window.location.href = "workshopInfo.php";
         }
 
+
     });
-}
+}  
+
+ 
