@@ -1,14 +1,20 @@
 <?php
 session_start();
 include("conn.php");
+include("allFun.php");
 
 
 if (isset($_SESSION['username'])) {
   $user = $_SESSION['username'];
 } else {
-  $user = "Login";
+  $newURL = "index.php";
+  header('Location: ' . $newURL);
+  // $user = "Login";
 }
 
+$sql="SELECT count('ws_id') FROM workshop where coordinator='$user'";
+$opt=load_val($sql)[0]["count('ws_id')"];
+// print_r($opt);
 
 ?>
 <!DOCTYPE html>
@@ -30,8 +36,13 @@ if (isset($_SESSION['username'])) {
     }
 
     .back-color {
-      background-color: tomato;
+      background-color: blueviolet;
       width: 400px;
+    }
+
+    .user_lbl {
+      font-size: 25px;
+      font-weight: 500;
     }
   </style>
 
@@ -41,7 +52,7 @@ if (isset($_SESSION['username'])) {
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="home.php  ">HWS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,13 +63,19 @@ if (isset($_SESSION['username'])) {
                 Workshop
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Last Workshop</a></li>
                 <li><a class="dropdown-item" href="newWorkshop.php">New Workshop</a></li>
+                <li><a class="dropdown-item" href="#">Last Workshop</a></li>
+                <li><a class="dropdown-item" href="#">Your workshops</a></li>
+
                 <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
               </ul>
             </li>
           </ul>
         </div>
+        <form class="d-flex text-light fs-3 text-center ">
+          <label id="user_lbl" class="pe-3"><?php echo $user ?> </label>
+          <button class="btn btn-outline-danger" type="submit">Logout</button>
+        </form>
       </div>
     </nav>
     <br>
@@ -69,11 +86,13 @@ if (isset($_SESSION['username'])) {
 
           <div class="card back-color shadow-lg p-3 mb-5 rounded">
             <!-- <img class="card-img-top" src="img_avatar1.png" alt="Card image"> -->
-            <img class="card-img-top" alt="Card image">
+            <!-- <img class="card-img-top" alt="Card image"> -->
             <div class="card-body">
-              <h4 class="card-title">Last Workshop</h4>
-              <p class="card-text">Some example text.</p>
-              <a href="#" class="btn btn-primary">See Profile</a>
+              <h4 class="card-title">Completed Workshops</h4>
+              <!-- <p class="card-text">Completed Workshops</p> -->
+              <p class="card-text" id="card_completed">You have done # <?php echo $opt ?> workshops</p>
+              
+              <a href="completed_ws.php" class="btn btn-secondary">More Info</a>
             </div>
           </div>
         </div>
@@ -82,10 +101,10 @@ if (isset($_SESSION['username'])) {
         <div class="col">
           <div class="card back-color shadow-lg p-3 mb-5 rounded">
             <!-- <img class="card-img-top" src="img_avatar1.png" alt="Card image"> -->
-            <img class="card-img-top" alt="Card image">
+            <!-- <img class="card-img-top" alt="Card image"> -->
             <div class="card-body">
-              <h4 class="card-title">Last Workshop</h4>
-              <p class="card-text">Some example text.</p>
+              <h4 class="card-title">Ongoing Workshops</h4>
+              <p class="card-text">You have # ongoing Workshops</p>
               <a href="#" class="btn btn-primary">See Profile</a>
             </div>
           </div>
@@ -107,7 +126,11 @@ if (isset($_SESSION['username'])) {
     </div>
 
 
+
   </div>
+
+
+
 </body>
 
 </html>

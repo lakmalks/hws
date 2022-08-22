@@ -18,6 +18,7 @@ if ($result->num_rows > 0) {
     $_SESSION["ws_count"] = $ws_count;
     // print_r($ws_id_ex);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
