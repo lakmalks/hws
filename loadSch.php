@@ -19,5 +19,8 @@ while($row = mysqli_fetch_array($result)) {
 ?>
 <option value="<?php echo $row["census"];?>"><?php echo $row["census"];?></option>
 <?php
+
+
+
 }
 ?>
