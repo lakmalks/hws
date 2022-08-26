@@ -16,6 +16,7 @@ $sql="SELECT count('ws_id') FROM workshop where coordinator='$user'";
 $opt=load_val($sql)[0]["count('ws_id')"];
 // print_r($opt);
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

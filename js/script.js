@@ -111,23 +111,7 @@ function loadZone() {
         }
     });
 }
-function loadSchool() {
-    var select = document.getElementById("zone");
-    var zone = select.options[select.selectedIndex].text;
 
-    $.ajax({
-        url: "loadSch.php",
-        type: "POST",
-        data: {
-            zone: zone
-        },
-        cache: false,
-        success: function (result) {
-            $("#school").html(result);
-            // alert(result);
-        }
-    });
-}
 // function addSession() {
 
 //     var selectScl = document.getElementById("school");
@@ -170,8 +154,8 @@ function addTemp() {
     ws_dis = district.substring(0, 2);
     ws_zone = zone.substring(0, 2);
 
-    selectScl = document.getElementById("school");
-    sch = selectScl.options[selectScl.selectedIndex].text;
+    // selectScl = document.getElementById("school");
+    // sch = selectScl.options[selectScl.selectedIndex].text;
 
     dateArr = $('#ws_date').val().split('/');
     date = dateArr[0];
@@ -192,7 +176,7 @@ function addTemp() {
     ws_id = year[0] + "/" + id_dis + "/" + id_zone + "/" + ws_count;
 
 
-    school = sch;
+    // school = sch;
     ws_level = ws_level;
     expType = exp;
     date = date;
@@ -205,7 +189,7 @@ function addTemp() {
 
     $("#dis_div").text("District : : " + ws_level);
     $("#zone_div").text("Zone : " + ws_level);
-    $("#sch_div").text("school : " + sch);
+    // $("#sch_div").text("school : " + sch);
     $("#ws_level_div").text("Level : " + ws_level);
     $("#exp_div_div").text("Expenditure : " + expVal);
     $("#allocated_div").text("Allocated amt : " + ws_level);
@@ -225,7 +209,7 @@ function addTempToVar() {
             ws_id: ws_id,
             district: district,
             zone: zone,
-            sch: sch,
+            // sch: sch,
             ws_level: ws_level,
 
             exp: exp,
@@ -244,7 +228,7 @@ function addTempToDb() {
             ws_id: ws_id,
             district: district,
             zone: zone,
-            sch: sch,
+            // sch: sch,
             ws_level: ws_level,
             exp: exp,
             date: date,

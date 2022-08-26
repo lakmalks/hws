@@ -1,7 +1,8 @@
 <?php
 session_start();
 include("conn.php");
-
+$zone=$_SESSION['zone'];
+print_r($_SESSION);
 
 if (isset($_SESSION['username'])) {
 }
@@ -21,6 +22,9 @@ function loadOptions($c, $sql, $item)
 
     return $options;
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,12 +66,49 @@ function loadOptions($c, $sql, $item)
 
 
         });
+
+        // function loadSchool(zone) {
+
+        //     var zone = select.options[select.selectedIndex].text;
+
+        //     $.ajax({
+        //         url: "loadSch.php",
+        //         type: "POST",
+        //         data: {
+        //             zone: zone
+        //         },
+        //         cache: false,
+        //         success: function(result) {
+        //             $("#school").html(result);
+        //             // alert(result);
+        //         }
+        //     });
+        // }
     </script>
     <div class="container">
-    
-        <form >
+
+        <form>
             <div class="form-topics">
-                <label>School : <?php echo $_SESSION['sch']; ?></label>
+                <div class="field">
+                    <?php
+                    $q = "SELECT distinct census FROM school_id where zone='$zone'";
+                    $result = $conn->query($q);
+                    ?>
+                    <div class="label">School</div>
+                    <select name="school" id="school" required>
+                        <option value="">Select School</option>
+                        <?php
+                        ?>
+                        <?php
+                        while ($row = mysqli_fetch_array($result)) {
+                        ?>
+                            <option value="<?php echo $row["census"]; ?>"><?php echo $row["census"]; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <!-- <label>School : <?php echo $_SESSION['sch']; ?></label> -->
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">

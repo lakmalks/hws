@@ -137,14 +137,15 @@ if ($result->num_rows > 0) {
                     </div>
                     <div class="field">
                         <div class="label">Zone</div>
-                        <select name="zone" id="zone" onChange="loadSchool()" required>
+                        <!-- <select name="zone" id="zone" onChange="loadSchool()" required> -->
+                        <select name="zone" id="zone" required>
                         </select>
                     </div>
-                    <div class="field">
+                    <!-- <div class="field">
                         <div class="label">School</div>
                         <select name="school" id="school" required>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="field btns">
                         <button class="firstNext next">Save and continue</button>
                     </div>
