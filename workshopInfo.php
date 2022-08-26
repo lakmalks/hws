@@ -216,9 +216,6 @@ function loadOptions($c, $sql, $item)
 
                 </div>
 
-
-
-
                 <div class="form-group col-md-6 p-3">
 
                     <div class="form-group">
