@@ -13,7 +13,7 @@ $result = $conn->query($q);
 if ($result->num_rows > 0) {
     $ws_id_arr = mysqli_fetch_all($result, MYSQLI_ASSOC);
     $ws_id_ex = $ws_id_arr[0];
-    $ws_count = $ws_id_ex["max(id)"];
+    $ws_count = $ws_id_ex["max(id)"]+1;
 
     $_SESSION["ws_count"] = $ws_count;
     // print_r($ws_id_ex);

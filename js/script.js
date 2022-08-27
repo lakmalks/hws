@@ -235,7 +235,7 @@ function addTempToDb() {
             exp_val: exp_val
         },
         success: function(response){
-            window.location.href = "workshopInfo.php";
+            window.location.href = "home.php";
         }
 
 

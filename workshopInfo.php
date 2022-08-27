@@ -2,7 +2,7 @@
 session_start();
 include("conn.php");
 $zone=$_SESSION['zone'];
-print_r($_SESSION);
+// print_r($_SESSION);
 
 if (isset($_SESSION['username'])) {
 }
@@ -88,10 +88,11 @@ function loadOptions($c, $sql, $item)
     <div class="container">
 
         <form>
-            <div class="form-topics">
-                <div class="field">
+            <div class="form-row">
+                
+                <div class="form-group col-md-3">
                     <?php
-                    $q = "SELECT distinct census FROM school_id where zone='$zone'";
+                    $q = "SELECT distinct census,schName FROM school_id where zone='$zone'";
                     $result = $conn->query($q);
                     ?>
                     <div class="label">School</div>
@@ -102,13 +103,17 @@ function loadOptions($c, $sql, $item)
                         <?php
                         while ($row = mysqli_fetch_array($result)) {
                         ?>
-                            <option value="<?php echo $row["census"]; ?>"><?php echo $row["census"]; ?></option>
+                            <option value="<?php echo $row["census"]; ?>"><?php echo $row["census"];echo " - ";echo $row["schName"]; ?></option>
                         <?php
                         }
                         ?>
                     </select>
+              
                 </div>
-                <!-- <label>School : <?php echo $_SESSION['sch']; ?></label> -->
+                <div class="form-group col-md-3">
+                    
+                </div>
+                
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">

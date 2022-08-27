@@ -66,7 +66,7 @@ $opt=load_val($sql)[0]["count('ws_id')"];
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                 <li><a class="dropdown-item" href="newWorkshop.php">New Workshop</a></li>
                 <li><a class="dropdown-item" href="#">Last Workshop</a></li>
-                <li><a class="dropdown-item" href="#">Your workshops</a></li>
+                <li><a class="dropdown-item" href="#">On-Going workshops</a></li>
 
                 <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
               </ul>
