@@ -11,15 +11,17 @@ function load_val($sql)
     }
     return $options;
 }
-function loadTable($sql)
+
+
+function loadTable($sq)
 {
     global $conn;
-    $result = $conn->query($sql);
+    $res = $conn->query($sq);
 
-    if ($result->num_rows > 0) {
-        $options = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if ($res->num_rows > 0) {
+        $opt = mysqli_fetch_all($res, MYSQLI_ASSOC);
     }
-    foreach ($options as $option) {
+    foreach ($opt as $option) {
         $ak = array_keys($option);
         echo "<tr> ";
         foreach ($ak as $key) {
@@ -28,3 +30,4 @@ function loadTable($sql)
         echo "</tr>";
     }
 }
+?>

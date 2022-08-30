@@ -48,7 +48,7 @@ if (isset($_SESSION['username'])) {
 
 <body>
     <div class="container-fluid">
-        <div id="nav-placeholder">        </div>
+        <div id="nav-placeholder"> </div>
 
         <script>
             $(function() {
@@ -56,16 +56,63 @@ if (isset($_SESSION['username'])) {
             });
         </script>
 
-        
+
         <br>
         <div class="container">
-            sdsa
 
-            </div>
+            <form>
+            <div class="form-group col-md-3">
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="ws_id" id="ws_id" required>
+                    <option selected id="new_task">Select your Workshop</option>
+                    <?php
+                    $q = "SELECT distinct id,ws_id FROM workshop where state=0";
+                    $result = $conn->query($q);
+                    ?>
+                        <?php
+                        ?>
+                        <?php
+                        while ($row = mysqli_fetch_array($result)) {
+                        ?>
+                            <option value="<?php echo $row["id"]; ?>"><?php echo $row["ws_id"]; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
 
+                    
+                    <?php
+                    $q = "SELECT distinct census,schName FROM school_id where zone='$zone'";
+                    $result = $conn->query($q);
+                    ?>
+                    <div class="label">School</div>
+                    <select name="school" id="school" required>
+                        <option value="">Select School</option>
+                        <?php
+                        ?>
+                        <?php
+                        while ($row = mysqli_fetch_array($result)) {
+                        ?>
+                            <option value="<?php echo $row["census"]; ?>"><?php echo $row["census"];echo " - ";echo $row["schName"]; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+              
+                </div>
+
+
+
+
+
+                    <button class="btn btn-primary" type="button" onclick=addTask()>Add New task to this Workshop</button>
+            </form>
 
 
         </div>
+
+
+
+    </div>
 
 
 

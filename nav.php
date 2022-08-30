@@ -38,7 +38,8 @@ if (isset($_SESSION['username'])) {
                         Task
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="new_task.php">New Task</a></li>
+                        <!-- <li><a class="dropdown-item" href="new_task.php">New Task</a></li> -->
+                        <li><a class="dropdown-item" href="workshopinfo.php">New Task</a></li>
                         
                         <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                     </ul>

@@ -61,66 +61,15 @@ function loadOptions($c, $sql, $item)
 
 
 <div class="container-fluid">
-    
-  <div id="nav-placeholder">        </div>
-
-<script>
-    $(function() {
-        $("#nav-placeholder").load("nav.php");
-    });
-</script>
-    <script>
-        $(document).ready(function() {
-
-            x = $("#parts_div").hide(0)
-            // alert(data_list);
-
-
-        });
-
-        // function loadSchool(zone) {
-
-        //     var zone = select.options[select.selectedIndex].text;
-
-        //     $.ajax({
-        //         url: "loadSch.php",
-        //         type: "POST",
-        //         data: {
-        //             zone: zone
-        //         },
-        //         cache: false,
-        //         success: function(result) {
-        //             $("#school").html(result);
-        //             // alert(result);
-        //         }
-        //     });
-        // }
+    </script>
+        
     </script>
     <div class="container">
 
         <form>
             <div class="form-row">
                 
-                <div class="form-group col-md-3">
-                    <?php
-                    $q = "SELECT distinct census,schName FROM school_id where zone='$zone'";
-                    $result = $conn->query($q);
-                    ?>
-                    <div class="label">School</div>
-                    <select name="school" id="school" required>
-                        <option value="">Select School</option>
-                        <?php
-                        ?>
-                        <?php
-                        while ($row = mysqli_fetch_array($result)) {
-                        ?>
-                            <option value="<?php echo $row["census"]; ?>"><?php echo $row["census"];echo " - ";echo $row["schName"]; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-              
-                </div>
+                
                 <div class="form-group col-md-3">
 
                 </div>

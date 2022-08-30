@@ -242,4 +242,27 @@ function addTempToDb() {
     });
 }  
 
- 
+function addTask() {
+
+   $ws_id= document.getElementById("new_task");
+    addTemp();
+    $.ajax({
+        url: "new_task.php",
+        type: "POST",
+        data: {
+            ws_id: ws_id,
+            district: district,
+            zone: zone,
+            // sch: sch,
+            ws_level: ws_level,
+            exp: exp,
+            date: date,
+            exp_val: exp_val
+        },
+        success: function(response){
+            window.location.href = "home.php";
+        }
+
+
+    });
+}  
