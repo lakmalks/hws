@@ -58,6 +58,17 @@ function loadOptions($c, $sql, $item)
 </head>
 
 <body>
+
+
+<div class="container-fluid">
+    
+  <div id="nav-placeholder">        </div>
+
+<script>
+    $(function() {
+        $("#nav-placeholder").load("nav.php");
+    });
+</script>
     <script>
         $(document).ready(function() {
 
@@ -111,7 +122,7 @@ function loadOptions($c, $sql, $item)
               
                 </div>
                 <div class="form-group col-md-3">
-                    
+
                 </div>
                 
             </div>

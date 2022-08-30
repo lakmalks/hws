@@ -19,7 +19,7 @@ if (isset($_SESSION['username'])) {
 <html lang="en">
 
 <head>
-    <title>Hardware System - Completed Workshops</title>
+    <title>New Task - Hardware System </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -59,30 +59,7 @@ if (isset($_SESSION['username'])) {
         
         <br>
         <div class="container">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>#id</th>
-                            <th>WS id</th>
-                            <th>District</th>
-                            <th>Zone</th>
-                            <th>School</th>
-                            <th>Level</th>
-                            <th>Allocate</th>
-                            <th>Expenses</th>
-                            <th>Date started</th>
-                            <th>Date Completed</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $sql = "SELECT * FROM workshop";
-                        loadTable($sql);
-
-                        ?>
-                    </tbody>
-                </table>
+            sdsa
 
             </div>
 
