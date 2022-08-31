@@ -30,4 +30,9 @@ function loadTable($sq)
         echo "</tr>";
     }
 }
+
+function loadData(){
+
+    
+}
 ?>

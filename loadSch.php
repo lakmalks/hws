@@ -1,13 +1,13 @@
 <?php
 include("conn.php");
-$zone = $_POST["zone"];
+$dev_model = $_POST["dev_model"];
 
 session_start();
-$_SESSION['zone'] = $zone; 
+$_SESSION['dev_model'] = $dev_model; 
 print_r($_SESSION);
 
 // $result = mysqli_query($conn,"SELECT * FROM school_id where district = $category_id");
-$q="SELECT distinct census FROM school_id where zone='$zone'";
+$q="SELECT distinct census FROM school_id where zone='$dev_model'";
 $result = $conn->query($q);
 
 ?>

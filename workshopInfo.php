@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("conn.php");
-$zone=$_SESSION['zone'];
+// $zone=$_SESSION['zone'];
 // print_r($_SESSION);
 
 if (isset($_SESSION['username'])) {
@@ -51,202 +51,204 @@ function loadOptions($c, $sql, $item)
             padding: 50px 35px 10px 35px;
         }
     </style>
-
-
-
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#parts_div").hide(0);
+        });
+    </script>
 </head>
 
 <body>
+<script src="./js/script.js"></script>
+    <div class="container-fluid">
+        </script>
 
+        </script>
+        <div class="container">
+            <form>
+                <div class="form-row">
 
-<div class="container-fluid">
-    </script>
-        
-    </script>
-    <div class="container">
+                    <div class="form-group col-md-3">
+                        <!-- <?php
+                            // $sql="SELECT ";
 
-        <form>
-            <div class="form-row">
-                
-                
-                <div class="form-group col-md-3">
-
-                </div>
-                
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="selectedDevice">Device</label>
-                    <select class="form-control" id="selectedDevice" name="selectedDevice">
-                        <?php
-                        $q_model = "SELECT device FROM device";
-                        loadOptions($conn, $q_model, "device");
-                        ?>
-                    </select>
-                    <br />
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="device_model">Brand</label>
-                    <select class="form-control" id="device_model" name="device_model">
-                        <?php
-                        $q_model = "SELECT model FROM models";
-                        loadOptions($conn, $q_model, "model");
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="mfd">MFD</label>
-                    <input type="date" class="form-control" id="mfd">
+                        ?> -->
+                        <h4>aaaa</h4>
+                    </div>
 
                 </div>
-                <div class="form-group col-md-3">
-                    <label for="ecv">ECV</label>
-                    <input type="text" class="form-control" id="ecv" placeholder="Estimated Value">
-
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="inventory">Inventory no</label>
-                    <input type="text" class="form-control" id="inventory" name="inventory">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="device_serial">Serial No</label>
-                    <input type="text" class="form-control" id="device_serial">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="device_fault">Fault or error</label>
-                    <select class="form-control" id="device_fault" name="device_fault">
-                        <option value="abc">abc</option>
-                        <option value="def">def</option>
-                    </select>
-
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="device_fault">Status</label>
-                    <select class="form-control" id="rep_state" name="rep_state" onchange="unhide_div(this)">
-                        <option value="repaired" selected>Repaired</option>
-                        <option value="replaced">Part replaced</option>
-                        <option value="guided">Instructed</option>
-                        <option value="discard">Discard</option>
-                    </select>
-
-                </div>
-            </div>
-            <?php
-            $sql = "SELECT * from r_parts";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                $op = mysqli_fetch_all($result, MYSQLI_ASSOC);
-            }
-            ?>
-
-            <div class="form-row " id="parts_div">
-                <div class="form-group col-md-6 border border-secondary p-3">
-                    <div class="form-row">
-                        <label for="r_parts">Parts replaced</label>
-                        <select class="form-control" id="r_parts" name="r_parts">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="selectedDevice">Device</label>
+                        <select class="form-control" id="selectedDevice" name="selectedDevice">
                             <?php
-                            foreach ($op as $opx) {
-                                $part = $opx['part'];
-                                $spec = $opx['spec'];
-                                $full_devSpec = $part . "-" . $spec;
-                                // $device = $opx['part'];
-                                $optStr = "<option id=$part name=$part>$full_devSpec</option>";
-                                echo $optStr; //Adding Options 
-                            }
+                            $q_model = "SELECT device FROM device";
+                            loadOptions($conn, $q_model, "device");
+                            ?>
+                        </select>
+                        <br />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="device_model">Brand</label>
+                        <select class="form-control" id="device_model" name="device_model">
+                            <?php
+                            $q_model = "SELECT model FROM models";
+                            loadOptions($conn, $q_model, "model");
                             ?>
                         </select>
                     </div>
+                    <div class="form-group col-md-3">
+                        <label for="mfd">MFD</label>
+                        <input type="date" class="form-control" id="mfd">
 
-                    <div class="form-row pt-3">
-                        <div class="col">
-                            <label for="quantity">Quantity</label>
-                            <input type="text" class="form-control" id="quantity" placeholder="Quantity">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="ecv">ECV</label>
+                        <input type="text" class="form-control" id="ecv" placeholder="Estimated Value">
 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="inventory">Inventory no</label>
+                        <input type="text" class="form-control" id="inventory" name="inventory">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="device_serial">Serial No</label>
+                        <input type="text" class="form-control" id="device_serial">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="device_fault">Fault or error</label>
+                        <select class="form-control" id="device_fault" name="device_fault">
+                            <option value="abc">abc</option>
+                            <option value="def">def</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="device_fault">Status</label>
+                        <select class="form-control" id="rep_state" name="rep_state" onchange="unhide_div(this)">
+                            <option value="repaired" selected>Repaired</option>
+                            <option value="replaced">Part replaced</option>
+                            <option value="guided">Instructed</option>
+                            <option value="discard">Discard</option>
+                        </select>
+
+                    </div>
+                </div>
+                <?php
+                $sql = "SELECT * from r_parts";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    $op = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                }
+                ?>
+
+                <div class="form-row " id="parts_div">
+                    <div class="form-group col-md-6 border border-secondary p-3">
+                        <div class="form-row">
+                            <label for="r_parts">Parts replaced</label>
+                            <select class="form-control" id="r_parts" name="r_parts">
+                                <?php
+                                foreach ($op as $opx) {
+                                    $part = $opx['part'];
+                                    $spec = $opx['spec'];
+                                    $full_devSpec = $part . "-" . $spec;
+                                    // $device = $opx['part'];
+                                    $optStr = "<option id=$part name=$part>$full_devSpec</option>";
+                                    echo $optStr; //Adding Options 
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-row pt-3">
+                            <div class="col">
+                                <label for="quantity">Quantity</label>
+                                <input type="text" class="form-control" id="quantity" placeholder="Quantity">
+
+
+                            </div>
+                            <div class="col">
+                                <label for="esti_price">Estimated</label>
+                                <input type="text" class="form-control" id="esti_price" placeholder="Price">
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-row pt-2">
+                            <Button type="button" class="btn btn-secondary btn-lg btn-block" id="btn_add_r_parts" onclick="addRow2('tbl_parts')"> Add to Table >></button>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group col-md-6 p-3">
+
+                        <div class="form-group">
+                            <label for="r_parts">Parts replaced</label>
+                            <table class="table table-striped" id="tbl_parts" name="tbl_parts">
+                                <tr id="0">
+                                    <th>#</th>
+                                    <th>Part</th>
+                                    <th>Qty</th>
+                                    <th>Estimated price</th>
+                                    <th>Status</th>
+                                </tr>
+                                <tbody id="tbody_parts">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <div class="align-bottom">
+                        </div>
+                        <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="addRow('tbl_fault')"> Add task to Table</button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+
+                </div>
+                <div class="form-group">
+                    <label for="device_table">Faults and Errors</label>
+                    <table class="table table-striped" id="tbl_fault" name="tbl_fault">
+                        <tr id="0">
+                            <th>#</th>
+                            <th>Device</th>
+                            <th>Inventory</th>
+                            <th>Serial</th>
+                            <th>Fault</th>
+                            <th>Status</th>
+                        </tr>
+                        <tbody id="tbody_fault">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2">Special Notes</label>
+                    <input type="text" class="form-control" id="sp_notes" placeholder="Add special notes">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="align-bottom">
+                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_save" name="btn_save" onclick="save_to_arr()">Save</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <div class="align-bottom">
+                            <button type="submit" class="btn btn-danger btn-lg btn-block" id="btn_finish" name="btn_finish" onclick="save_to_arr()">Save and Finish</button>
 
                         </div>
-                        <div class="col">
-                            <label for="esti_price">Estimated</label>
-                            <input type="text" class="form-control" id="esti_price" placeholder="Price">
 
-
-                        </div>
-                    </div>
-
-                    <div class="form-row pt-2">
-                        <Button type="button" class="btn btn-secondary btn-lg btn-block" id="btn_add_r_parts" onclick="addRow2('tbl_parts')"> Add to Table >></button>
-                    </div>
-
-                </div>
-
-                <div class="form-group col-md-6 p-3">
-
-                    <div class="form-group">
-                        <label for="r_parts">Parts replaced</label>
-                        <table class="table table-striped" id="tbl_parts" name="tbl_parts">
-                            <tr id="0">
-                                <th>#</th>
-                                <th>Part</th>
-                                <th>Qty</th>
-                                <th>Estimated price</th>
-                                <th>Status</th>
-                            </tr>
-                            <tbody id="tbody_parts">
-
-                            </tbody>
-                        </table>
                     </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <div class="align-bottom">
-                    </div>
-                    <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="addRow('tbl_fault')"> Add task to Table</button>
-                </div>
-            </div>
-
-            <div class="form-row">
-
-            </div>
-            <div class="form-group">
-                <label for="device_table">Faults and Errors</label>
-                <table class="table table-striped" id="tbl_fault" name="tbl_fault">
-                    <tr id="0">
-                        <th>#</th>
-                        <th>Device</th>
-                        <th>Inventory</th>
-                        <th>Serial</th>
-                        <th>Fault</th>
-                        <th>Status</th>
-                    </tr>
-                    <tbody id="tbody_fault">
-                    </tbody>
-                </table>
-            </div>
-            <div class="form-group">
-                <label for="inputAddress2">Special Notes</label>
-                <input type="text" class="form-control" id="sp_notes" placeholder="Add special notes">
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <div class="align-bottom">
-                        <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_save" name="btn_save" onclick="save_to_arr()">Save</button>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <div class="align-bottom">
-                        <button type="submit" class="btn btn-danger btn-lg btn-block" id="btn_finish" name="btn_finish" onclick="save_to_arr()">Save and Finish</button>
-
-                    </div>
-
-                </div>
-            </div>
-    </div>
-    </form>
+        </div>
+        </form>
     </div>
 </body>
 

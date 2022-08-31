@@ -111,6 +111,23 @@ function loadZone() {
         }
     });
 }
+function loadSch() {
+    var select = document.getElementById("device_model");
+    var dev_model = select.options[select.selectedIndex].text;
+
+    $.ajax({
+        url: "loadSch.php",
+        type: "POST",
+        data: {
+            dev_model: dev_model
+        },
+        cache: false,
+        success: function (result) {
+            $("#zone").html(result);
+            // alert(result);
+        }
+    });
+}
 
 // function addSession() {
 
