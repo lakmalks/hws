@@ -31,8 +31,31 @@ function loadTable($sq)
     }
 }
 
-function loadData(){
+function taskCount($sql){
 
+    global $conn;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $val = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    return $val;
     
 }
+
+// function loadOptions($c, $sql, $item)
+// {
+//     $result = $c->query($sql);
+//     if ($result->num_rows > 0) {
+//         $options = mysqli_fetch_all($result, MYSQLI_ASSOC);
+//         // echo $options;
+//     }
+//     foreach ($options as $option_device) {
+//         $device = $option_device[$item];
+//         $opt = "<option id=$device name=$device>$device</option>";
+//         echo $opt;
+//     }
+
+//     return $options;
+// }
+
 ?>

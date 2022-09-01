@@ -1,11 +1,19 @@
 <?php
 session_start();
 include("conn.php");
-// $zone=$_SESSION['zone'];
-// print_r($_SESSION);
+require_once("allFun.php");
 
-if (isset($_SESSION['username'])) {
+
+$scl=$_GET['task_school'];
+$ws_id=$_GET['nc_ws_id'];
+
+
+if (!isset($_SESSION['username'])) {
+    $newURL = "index.php";
+    header('Location: ' . $newURL);
+  
 }
+
 
 function loadOptions($c, $sql, $item)
 {
@@ -24,13 +32,18 @@ function loadOptions($c, $sql, $item)
 }
 
 
+$sql_task="SELECT max(id) FROM task WHERE ws_id='$ws_id'";
+$temp_task_result=taskCount($sql_task);
+$temp_task_id=$temp_task_result[0];
+$task_id=$temp_task_id["max(id)"]+1;
+
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <script src="./js/st.js"> </script>
+    <script src="./js/script.js"> </script>
 
     <meta charset="utf-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
@@ -68,12 +81,10 @@ function loadOptions($c, $sql, $item)
             <form>
                 <div class="form-row">
 
-                    <div class="form-group col-md-3">
-                        <!-- <?php
-                            // $sql="SELECT ";
-
-                        ?> -->
-                        <h4>aaaa</h4>
+                    <div class="form-group col-md-12" >
+                        <h4>Workshop ID : <?php echo $ws_id ?> Task ID : <?php echo $task_id ?></h4>
+                        <h4>School ID : <?php echo $scl ?></h4>
+                        <hr>
                     </div>
 
                 </div>
@@ -235,7 +246,7 @@ function loadOptions($c, $sql, $item)
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <div class="align-bottom">
-                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_save" name="btn_save" onclick="save_to_arr()">Save</button>
+                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_save" name="btn_save" onclick="readTable()">Save</button>
                         </div>
                     </div>
 

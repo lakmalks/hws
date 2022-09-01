@@ -1,26 +1,37 @@
 <?php
 include("conn.php");
-$dev_model = $_POST["dev_model"];
+$selected_id = $_POST["selected_id"];
 
 session_start();
-$_SESSION['dev_model'] = $dev_model; 
-print_r($_SESSION);
+// $_SESSION['selected_id'] = $selected_id;
+
 
 // $result = mysqli_query($conn,"SELECT * FROM school_id where district = $category_id");
-$q="SELECT distinct census FROM school_id where zone='$dev_model'";
+
+// $q = "SELECT census,schName FROM school_id  where zone=(SELECT zone FROM workshop where id='$selected_id'))";
+$q="SELECT census,schName FROM school_id  where zone=(SELECT zone FROM workshop where id='$selected_id')";
+
 $result = $conn->query($q);
-
 ?>
-<option value="">Select School</option>
-<?php
-?>
-<?php
-while($row = mysqli_fetch_array($result)) {
-?>
-<option value="<?php echo $row["census"];?>"><?php echo $row["census"];?></option>
-<?php
+<!-- <div class="label">School</div> -->
+    <option value="">Select School</option>
+
+    <?php
+    while ($row = mysqli_fetch_array($result)) {
+    ?>
+        <option value="<?php echo $row["census"]; ?>"><?php echo $row["census"];
+                                                        echo " - ";
+                                                        echo $row["schName"]; ?></option>
+    <?php
+    }
 
 
 
-}
-?>
+
+
+
+
+
+
+
+    ?>
