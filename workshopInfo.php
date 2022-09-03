@@ -4,14 +4,24 @@ include("conn.php");
 require_once("allFun.php");
 
 
-$scl=$_GET['task_school'];
-$ws_id=$_GET['nc_ws_id'];
+$scl = $_GET['task_school'];
+$ws_id = $_GET['nc_ws_id'];
+
+
+
+$sql_task = "SELECT max(id) FROM task WHERE ws_id='$ws_id'";
+$temp_task_result = taskCount($sql_task);
+$temp_task_id = $temp_task_result[0];
+$task_id = $temp_task_id["max(id)"] + 1;
+
+
+$_SESSION['ws_id_task'] = $ws_id;
+$_SESSION['task_id'] = $task_id;
 
 
 if (!isset($_SESSION['username'])) {
     $newURL = "index.php";
     header('Location: ' . $newURL);
-  
 }
 
 
@@ -32,10 +42,6 @@ function loadOptions($c, $sql, $item)
 }
 
 
-$sql_task="SELECT max(id) FROM task WHERE ws_id='$ws_id'";
-$temp_task_result=taskCount($sql_task);
-$temp_task_id=$temp_task_result[0];
-$task_id=$temp_task_id["max(id)"]+1;
 
 
 ?>
@@ -67,12 +73,14 @@ $task_id=$temp_task_id["max(id)"]+1;
     <script type="text/javascript">
         $(document).ready(function() {
             $("#parts_div").hide(0);
+            $("#ws_id_task_hid").hide(0);
+            $("#task_id_task_hid").hide(0);
         });
     </script>
 </head>
 
 <body>
-<script src="./js/script.js"></script>
+    <script src="./js/script.js"></script>
     <div class="container-fluid">
         </script>
 
@@ -81,9 +89,11 @@ $task_id=$temp_task_id["max(id)"]+1;
             <form>
                 <div class="form-row">
 
-                    <div class="form-group col-md-12" >
+                    <div class="form-group col-md-12">
                         <h4>Workshop ID : <?php echo $ws_id ?> Task ID : <?php echo $task_id ?></h4>
                         <h4>School ID : <?php echo $scl ?></h4>
+                        <div id="ws_id_task_hid"><?php echo $ws_id ?></div>
+                        <div id="task_id_task_hid"><?php echo $task_id ?></div>
                         <hr>
                     </div>
 
@@ -126,13 +136,19 @@ $task_id=$temp_task_id["max(id)"]+1;
                     </div>
                     <div class="form-group col-md-3">
                         <label for="device_serial">Serial No</label>
-                        <input type="text" class="form-control" id="device_serial">
+                        <input type="text" class="form-control" id="device_serial" required>
                     </div>
+
+
+
+
                     <div class="form-group col-md-3">
                         <label for="device_fault">Fault or error</label>
                         <select class="form-control" id="device_fault" name="device_fault">
-                            <option value="abc">abc</option>
-                            <option value="def">def</option>
+                            <?php
+                            $q_model = "SELECT fault FROM fault";
+                            loadOptions($conn, $q_model, "fault");
+                            ?>
                         </select>
 
                     </div>
@@ -154,23 +170,29 @@ $task_id=$temp_task_id["max(id)"]+1;
                     $op = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 }
                 ?>
-
                 <div class="form-row " id="parts_div">
                     <div class="form-group col-md-6 border border-secondary p-3">
                         <div class="form-row">
-                            <label for="r_parts">Parts replaced</label>
-                            <select class="form-control" id="r_parts" name="r_parts">
-                                <?php
-                                foreach ($op as $opx) {
-                                    $part = $opx['part'];
-                                    $spec = $opx['spec'];
-                                    $full_devSpec = $part . "-" . $spec;
-                                    // $device = $opx['part'];
-                                    $optStr = "<option id=$part name=$part>$full_devSpec</option>";
-                                    echo $optStr; //Adding Options 
-                                }
-                                ?>
-                            </select>
+                            <div class="col">
+                                <label for="r_parts">Parts replaced</label>
+                                <select class="form-control" id="r_parts" name="r_parts" onchange='loadPartID()'>
+                                    <?php
+                                    foreach ($op as $opx) {
+                                        $part_id = $opx['id'];
+                                        $part = $opx['part'];
+                                        $spec = $opx['spec'];
+                                        $full_devSpec = $part . "-" . $spec;
+                                        // $device = $opx['part'];
+                                        $optStr = "<option id=$part_id name=$part_id>$full_devSpec</option>";
+                                        echo $optStr; //Adding Options 
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col">
+                            <label for="part_id">Part ID</label>
+                                <input type="text" class="form-control" id="part_id" placeholder="part_id" readonly value=1>
+                            </div>
                         </div>
 
                         <div class="form-row pt-3">
@@ -197,17 +219,16 @@ $task_id=$temp_task_id["max(id)"]+1;
                     <div class="form-group col-md-6 p-3">
 
                         <div class="form-group">
-                            <label for="r_parts">Parts replaced</label>
+                            <label for="tbl_parts">Parts replaced</label>
                             <table class="table table-striped" id="tbl_parts" name="tbl_parts">
                                 <tr id="0">
-                                    <th>#</th>
+                                    <th>id</th>
                                     <th>Part</th>
                                     <th>Qty</th>
                                     <th>Estimated price</th>
                                     <th>Status</th>
                                 </tr>
                                 <tbody id="tbody_parts">
-
                                 </tbody>
                             </table>
                         </div>
@@ -225,11 +246,16 @@ $task_id=$temp_task_id["max(id)"]+1;
 
                 </div>
                 <div class="form-group">
-                    <label for="device_table">Faults and Errors</label>
+                    <label for="tbl_fault">Faults and Errors</label>
                     <table class="table table-striped" id="tbl_fault" name="tbl_fault">
                         <tr id="0">
                             <th>#</th>
                             <th>Device</th>
+
+                            <th>Brand</th>
+                            <th>MFD</th>
+                            <th>ECV</th>
+
                             <th>Inventory</th>
                             <th>Serial</th>
                             <th>Fault</th>
@@ -246,7 +272,7 @@ $task_id=$temp_task_id["max(id)"]+1;
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <div class="align-bottom">
-                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_save" name="btn_save" onclick="readTable()">Save</button>
+                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_save" name="btn_save" onclick="readTableFault()">Save</button>
                         </div>
                     </div>
 
