@@ -278,7 +278,7 @@ function loadOptions($c, $sql, $item)
 
                     <div class="form-group col-md-6">
                         <div class="align-bottom">
-                            <button type="submit" class="btn btn-danger btn-lg btn-block" id="btn_finish" name="btn_finish" onclick="save_to_arr()">Save and Finish</button>
+                            <button type="submit" class="btn btn-danger btn-lg btn-block" id="btn_finish" name="btn_finish" onclick="readTableFault()">Save and Finish</button>
 
                         </div>
 

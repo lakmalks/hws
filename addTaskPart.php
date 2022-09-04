@@ -9,7 +9,7 @@ $task_id_task_hid = $_SESSION["task_id"];
 
 
 $part_td = $_POST["part_id"];
-$qty_td = $_POST["part"];
+$qty_td = $_POST["qty"];
 $estimated = $_POST["estimated"];
 $status = $_POST["status"];
 

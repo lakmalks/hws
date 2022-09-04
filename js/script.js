@@ -246,7 +246,7 @@ function addTempToDb() {
             zone: zone,
             // sch: sch,
             ws_level: ws_level,
-            exp: exp,
+            expType: expType,
             date: date,
             exp_val: exp_val
         },
@@ -288,8 +288,7 @@ function addTask() {
 // const arr_part_repd = [];
 // const part_table = [];
 
-function readTableFault() {
-alert("hello");
+function readTableFault(state_complete) {
 readTableParts();
     $('#tbl_fault #tbody_fault tr').each(function () {
        
@@ -334,7 +333,7 @@ readTableParts();
 }
 function readTableParts() {
     
-    $('#tbl_parts #tbody_fault tr').each(function () {
+    $('#tbl_parts #tbody_parts tr').each(function () {
        
         
         var part_id = $(this).find("td").eq(0).html();
@@ -342,9 +341,9 @@ function readTableParts() {
         var qty = $(this).find("td").eq(2).html();
         var estimated = $(this).find("td").eq(3).html();
         var status = $(this).find("td").eq(4).html();
-
+alert(status);
         $.ajax({
-            url: "addTaskParts.php",
+            url: "addTaskPart.php",
             type: "POST",
             data: {
                 // ws_id_task_hid: ws_id_task_hid,
@@ -381,6 +380,9 @@ function addRow(tbl) {
     val3 = document.getElementById("device_serial").value;
     val_dev_fault = document.getElementById("device_fault").value;
     val_rep_state = document.getElementById("rep_state").value;
+
+    // val_rep_state = rep_state[rep_state.selectedIndex].id;
+    // $("#r_parts").val(val_rep_state);
 
     if (val_ecv == 0) {
 
@@ -535,4 +537,22 @@ function unhide_div(item,op1,op2,divID) {
 function loadPartID(){
     part_id = r_parts[r_parts.selectedIndex].id;
     $("#part_id").val(part_id);
+}
+function loadTask(){
+
+    var select = document.getElementById("nc_ws_id");
+    var selected_id = select.options[select.selectedIndex].value;
+
+    $.ajax({
+        url: "loadSch.php",
+        type: "POST",
+        data: {
+            selected_id: selected_id
+        },
+        cache: false,
+        success: function (result) {
+            $("#task_school").html(result);
+            // alert(result);
+        }
+    });
 }

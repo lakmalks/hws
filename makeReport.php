@@ -68,10 +68,10 @@ if (isset($_SESSION['username'])) {
                 <div class="row">
                     <div class="form-group col-md-3">
                         <!-- nc - not completed -->
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="nc_ws_id" id="nc_ws_id" onChange="loadSch()" required>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="nc_ws_id" id="nc_ws_id" onChange="loadTask()" required>
                             <option selected value="na">Select Workshop</option>
                             <?php
-                            $q = "SELECT distinct id,ws_id FROM workshop where coordinator='$user' and state=0";
+                            $q = "SELECT distinct id,ws_id FROM task where coordinator='$user'";
                             $result = $conn->query($q);
                             ?>
 

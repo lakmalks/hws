@@ -57,4 +57,9 @@ function taskCount($sql){
 
 //     return $options;
 // }
-?>
+
+function logout(){
+    session_destroy();
+//     $newURL = "index.php";
+//   header('Location: ' . $newURL);
+}

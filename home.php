@@ -12,9 +12,11 @@ if (isset($_SESSION['username'])) {
   // $user = "Login";
 }
 
-$sql="SELECT count('ws_id') FROM workshop where coordinator='$user'";
-$opt=load_val($sql)[0]["count('ws_id')"];
-// print_r($opt);
+$sql_completed="SELECT count('ws_id') FROM workshop where coordinator='$user' and state=1";
+$Completed_ws=load_val($sql_completed)[0]["count('ws_id')"];
+
+$sql_nc_ws="SELECT count('ws_id') FROM workshop where coordinator='$user' and state=0";
+$nc_ws=load_val($sql_nc_ws)[0]["count('ws_id')"];
 
 
 ?>
@@ -73,9 +75,9 @@ $opt=load_val($sql)[0]["count('ws_id')"];
             <!-- <img class="card-img-top" src="img_avatar1.png" alt="Card image"> -->
             <!-- <img class="card-img-top" alt="Card image"> -->
             <div class="card-body">
-              <h4 class="card-title">Completed Workshops</h4>
+              <h4 class="card-title">Completed Workshops : [<?php echo $Completed_ws ?>]</h4>
               <!-- <p class="card-text">Completed Workshops</p> -->
-              <p class="card-text" id="card_completed">You have done # <?php echo $opt ?> workshops</p>
+              <p class="card-text" id="card_completed">You have done # <?php echo $Completed_ws ?> workshops</p>
               
               <a href="completed_ws.php" class="btn btn-secondary">More Info</a>
             </div>
@@ -88,9 +90,9 @@ $opt=load_val($sql)[0]["count('ws_id')"];
             <!-- <img class="card-img-top" src="img_avatar1.png" alt="Card image"> -->
             <!-- <img class="card-img-top" alt="Card image"> -->
             <div class="card-body">
-              <h4 class="card-title">Ongoing Workshops</h4>
-              <p class="card-text">You have # ongoing Workshops</p>
-              <a href="#" class="btn btn-primary">See Profile</a>
+              <h4 class="card-title">Ongoing Workshops : [<?php echo $nc_ws ?>]</h4>
+              <p class="card-text">You have # <?php echo $nc_ws ?> ongoing Workshops</p>
+              <a href="completed_ws.php" class="btn btn-secondary">More Info</a>
             </div>
           </div>
         </div>

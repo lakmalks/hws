@@ -9,13 +9,13 @@ $zone= $_POST["zone"];
 // $sch= $_POST["sch"];
 $ws_level= $_POST["ws_level"];
 $user= $_SESSION["username"];
-$exp= $_POST["exp"];
+$exp= $_POST["expType"];
 $date= $_POST["date"];
 $exp_val= $_POST["exp_val"];
 
 
 
-$sql = "INSERT INTO workshop  VALUES ('','$ws_id','$district','$zone','$ws_level','$user','$exp','$date','$exp_val',0)";
+$sql = "INSERT INTO workshop  VALUES ('','$ws_id','$district','$zone','$ws_level','$user','$exp_val','$exp','$date',0)";
 if (mysqli_query($link, $sql)) {
     echo "Records added successfully.";
 } else {

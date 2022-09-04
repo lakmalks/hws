@@ -44,9 +44,20 @@ if (isset($_SESSION['username'])) {
                         <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Report
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <!-- <li><a class="dropdown-item" href="new_task.php">New Task</a></li> -->
+                        <li><a class="dropdown-item" href="makeReport.php">Make report</a></li>
+                        
+                        <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                    </ul>
+                </li>
             </ul>
         </div>
-        <form class="d-flex text-light fs-3 text-center ">
+        <form class="d-flex text-light fs-3 text-center " action="logout.php">
             <label id="user_lbl" class="pe-3"><?php echo $user ?> </label>
             <button class="btn btn-outline-danger" type="submit">Logout</button>
         </form>
