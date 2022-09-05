@@ -18,20 +18,22 @@ function loadTable($sq)
     global $conn;
     $res = $conn->query($sq);
 
-    if ($res->num_rows > 0) {
+    if (!$res->num_rows > 0) {
+        
+    } else {
         $opt = mysqli_fetch_all($res, MYSQLI_ASSOC);
-    }
-    foreach ($opt as $option) {
-        $ak = array_keys($option);
-        echo "<tr> ";
-        foreach ($ak as $key) {
-            echo   "<td>$option[$key] </td>";
+        foreach ($opt as $option) {
+            $ak = array_keys($option);
+            echo "<tr> ";
+            foreach ($ak as $key) {
+                echo   "<td>$option[$key] </td>";
+            }
+            echo "</tr>";
         }
-        echo "</tr>";
     }
 }
-
-function taskCount($sql){
+function taskCount($sql)
+{
 
     global $conn;
     $result = $conn->query($sql);
@@ -39,7 +41,6 @@ function taskCount($sql){
         $val = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
     return $val;
-    
 }
 
 // function loadOptions($c, $sql, $item)
@@ -58,8 +59,9 @@ function taskCount($sql){
 //     return $options;
 // }
 
-function logout(){
+function logout()
+{
     session_destroy();
-//     $newURL = "index.php";
-//   header('Location: ' . $newURL);
+    //     $newURL = "index.php";
+    //   header('Location: ' . $newURL);
 }

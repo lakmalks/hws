@@ -60,59 +60,98 @@ if (isset($_SESSION['username'])) {
 
         <br>
         <div class="container">
-        <div class="row">
-    Please select workshop and then select the school.
-   
-</div>
             <form action="workshopInfo.php"> <br>
                 <div class="row">
-                    <div class="form-group col-md-3">
-                        <!-- nc - not completed -->
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="nc_ws_id" id="nc_ws_id" onChange="loadSch()" required>
-                            <option selected value="na">Select Workshop</option>
-                            <?php
-                            $q = "SELECT distinct id,ws_id FROM workshop where coordinator='$user' and state=0";
-                            $result = $conn->query($q);
-                            ?>
+                    <div class='col-md-6'>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <!-- nc - not completed -->
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="nc_ws_id" id="nc_ws_id" onChange="loadSch()" required>
+                                    <option selected value="na">Select Workshop</option>
 
-                            <?php
-                            while ($row = mysqli_fetch_array($result)) {
-                            ?>
-                                <option value="<?php echo $row["id"]; ?>"><?php echo $row["ws_id"]; ?></option>
-                            <?php
-                            }
-                            ?>
-                        </select>
+                                    // Load Not-completed workshop list
+                                    <?php
+                                    $q = "SELECT distinct id,ws_id FROM workshop where coordinator='$user' and state=0";
+                                    $result = $conn->query($q);
+                                    ?>
+
+                                    <?php
+                                    while ($row = mysqli_fetch_array($result)) {
+                                    ?>
+                                        <option value="<?php echo $row["id"]; ?>"><?php echo $row["ws_id"]; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="task_school" id="task_school" required onchange="loadResourcep()">
+                                    <option value="">Select School</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-10">
+
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="task_resource_per" id="task_resource_per" required>
+                                    <option value="">Select Resource person</option>
 
 
+                                    // Load resource persons for workshop from list
+                                    <?php
+                                    $q = "SELECT distinct name,nic,mobile,workplace FROM user";
+                                    $r_resource_p = $conn->query($q);
+                                    ?>
+
+                                    <?php
+                                    while ($row = mysqli_fetch_array($r_resource_p)) {
+                                        $str=$row["name"] . '-' . $row["workplace"];
+                                    ?>
+                                        <option value="<?php echo $str ?>"><?php echo $str; ?></option>
+                                    <?php
+                                    }
+                                    
+                                    ?>
+                                </select>
+
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2 p-1">
+                                <button class="btn btn-primary" type="button" onclick="addToRTable()">Add>></button>
+
+                            </div>
+
+                        </div>
                     </div>
+                    <div class="form-group col-md-6">
+                        <h5 class="text-center">Resource person</h5>
 
-                    <div class="form-group col-md-3">
+                        <table class="table table-striped" id="tbl_resource_p" name="tbl_resource_p">
+                            <tr id="0">
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>NIC</th>
+                                <th>Work place</th>
+                            </tr>
+                            <tbody id="tbody_resource_p">
 
-                        <!-- <?php
-                        // $q = "SELECT distinct census,schName FROM school_id where zone='$zone'";
-                        // $result = $conn->query($q); -->
-                        // ?>
-                         -->
-                        <!-- <div class="label">School</div> -->
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="task_school" id="task_school" required>
-                            <option value="">Select School</option>
 
-                        </select>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
-                <button class="btn btn-primary" type="submit">Add New task to this Workshop</button>
+                <div class='row'>
+                <div class="d-grid gap-1">
+                    <!-- <div class="form-group col-md-12"> -->
+                        <button class="btn btn-danger" type="submit">Add New task to this Workshop</button>
+                    </div>
+                </div>
             </form>
-
-
         </div>
-
-
-
     </div>
-
-
-
 </body>
 
 </html>

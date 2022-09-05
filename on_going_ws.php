@@ -77,7 +77,7 @@ if (isset($_SESSION['username'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $sql = "SELECT * FROM workshop";
+                        <?php $sql = "SELECT * FROM workshop where coordinator='$user' and state=0";
                         loadTable($sql);
 
                         ?>

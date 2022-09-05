@@ -470,6 +470,7 @@ function addRow2(tbl2) {
     // }
     // console.log("__________________________ ");
 }
+
 function unhide_div(item,op1,op2,divID) {
     it_val = item.value;
 
@@ -555,4 +556,25 @@ function loadTask(){
             // alert(result);
         }
     });
+}
+
+
+// page NewTask functions-----------------------------------------------
+function addToRTable() {
+    tblid_res = "#tbl_resource_p tr:last";
+    // tbl_res = $(tblid_res).attr('id');
+    // count_res = parseInt(tbl_res) + 1;
+    select_res=document.getElementById("task_resource_per").value;
+   val_res=select_res.split("-");
+   alert(select_res);
+    markup_res = "<tr contenteditable='true' id="
+        + val_res[1] + "><td>"
+        + val_res[1] + "</td><td>"
+        + val_res[1] + "</td><td>"
+        + val_res[0] + "</td><td>"
+        + val_res[0] + "</td></tr>";
+
+    tbody_resource_p = "#tbody_resource_p";
+    tableBody_parts = $(tbody_resource_p);
+    tableBody_parts.append(markup_res);
 }
