@@ -289,9 +289,9 @@ function addTask() {
 // const part_table = [];
 
 function readTableFault(state_complete) {
-readTableParts();
+    readTableParts();
     $('#tbl_fault #tbody_fault tr').each(function () {
-       
+
         var device_td = $(this).find("td").eq(1).html();
         var brand_td = $(this).find("td").eq(2).html();
         var mfd_td = $(this).find("td").eq(3).html();
@@ -332,23 +332,23 @@ readTableParts();
 
 }
 function readTableParts() {
-    
+
     $('#tbl_parts #tbody_parts tr').each(function () {
-       
-        
+
+
         var part_id = $(this).find("td").eq(0).html();
         var part = $(this).find("td").eq(1).html();
         var qty = $(this).find("td").eq(2).html();
         var estimated = $(this).find("td").eq(3).html();
         var status = $(this).find("td").eq(4).html();
-alert(status);
+        alert(status);
         $.ajax({
             url: "addTaskPart.php",
             type: "POST",
             data: {
                 // ws_id_task_hid: ws_id_task_hid,
                 // task_id_task_hid: task_id_task_hid,
-                part_id:  part_id,
+                part_id: part_id,
                 part: part,
                 qty: qty,
                 estimated: estimated,
@@ -433,7 +433,7 @@ function addRow2(tbl2) {
     tblid2 = "#" + tbl2 + " tr:last";
     tid2 = $(tblid2).attr('id');
     lineNo2 = parseInt(tid2) + 1;
-    part_id_tbl=document.getElementById("part_id").value;
+    part_id_tbl = document.getElementById("part_id").value;
     val4 = document.getElementById("r_parts").value;
     val5 = document.getElementById("quantity").value;
     val6 = document.getElementById("esti_price").value;
@@ -471,7 +471,7 @@ function addRow2(tbl2) {
     // console.log("__________________________ ");
 }
 
-function unhide_div(item,op1,op2,divID) {
+function unhide_div(item, op1, op2, divID) {
     it_val = item.value;
 
     if (it_val == "guided" || it_val == "replaced") {
@@ -531,15 +531,15 @@ function unhide_div(item,op1,op2,divID) {
     // }
     // console.log("__________________________ ");
 
-   
+
 }
 
 //get part ID from part select onchange 
-function loadPartID(){
+function loadPartID() {
     part_id = r_parts[r_parts.selectedIndex].id;
     $("#part_id").val(part_id);
 }
-function loadTask(){
+function loadTask() {
 
     var select = document.getElementById("nc_ws_id");
     var selected_id = select.options[select.selectedIndex].value;
@@ -564,9 +564,9 @@ function addToRTable() {
     tblid_res = "#tbl_resource_p tr:last";
     // tbl_res = $(tblid_res).attr('id');
     // count_res = parseInt(tbl_res) + 1;
-    select_res=document.getElementById("task_resource_per").value;
-   val_res=select_res.split("-");
-   alert(select_res);
+    select_res = document.getElementById("task_resource_per").value;
+    val_res = select_res.split("-");
+    alert(select_res);
     markup_res = "<tr contenteditable='true' id="
         + val_res[1] + "><td>"
         + val_res[1] + "</td><td>"
