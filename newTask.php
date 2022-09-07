@@ -86,7 +86,7 @@ if (isset($_SESSION['username'])) {
                             </div>
                             <div class="form-group col-md-6">
 
-                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="task_school" id="task_school" required onchange="loadResourcep()">
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="task_school" id="task_school" required>
                                     <option value="">Select School</option>
 
                                 </select>
@@ -107,7 +107,7 @@ if (isset($_SESSION['username'])) {
 
                                     <?php
                                     while ($row = mysqli_fetch_array($r_resource_p)) {
-                                        $str=$row["name"] . '-' . $row["workplace"];
+                                        $str='['.$row["name"].']'.'-'.'['.$row["workplace"].']'. '-'.'['.$row["mobile"].']';
                                     ?>
                                         <option value="<?php echo $str ?>"><?php echo $str; ?></option>
                                     <?php
