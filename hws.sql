@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2022 at 08:04 PM
+-- Generation Time: Sep 07, 2022 at 08:39 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -42,6 +42,27 @@ INSERT INTO `device` (`id`, `device`) VALUES
 (3, 'UPS'),
 (4, 'Network'),
 (5, 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fault`
+--
+
+CREATE TABLE `fault` (
+  `id` int(11) NOT NULL,
+  `fault` varchar(255) NOT NULL,
+  `remarks` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fault`
+--
+
+INSERT INTO `fault` (`id`, `fault`, `remarks`) VALUES
+(1, 'Damaged', NULL),
+(2, 'Cracked', NULL),
+(3, 'Other', NULL);
 
 -- --------------------------------------------------------
 
@@ -93,7 +114,8 @@ INSERT INTO `job` (`job_id`, `ws_id`, `device`, `brand`, `mfd`, `ecv`, `inventor
 (23, '202205', 'System Unit', 'Samsung', '2022-08-02', '1212', '121212', '12121', 'def', 'replaced', 0),
 (24, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'repaired', 0),
 (25, '202205', 'Monitor', 'Dell', '', '', '', '', 'abc', 'repaired', 0),
-(26, '202205', 'System Unit', 'Dell', '', '', '', '', 'abc', 'replaced', 0);
+(26, '202205', 'System Unit', 'Dell', '', '', '', '', 'abc', 'replaced', 0),
+(27, '202205', '', '', '', '', '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -142,11 +164,32 @@ INSERT INTO `models` (`id`, `model`) VALUES
 CREATE TABLE `order_part` (
   `id` int(11) NOT NULL,
   `ws_id` varchar(32) NOT NULL,
+  `task_id` varchar(16) NOT NULL,
   `part` varchar(16) NOT NULL,
   `qty` int(11) NOT NULL,
   `estimated` int(11) NOT NULL,
   `state` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_part`
+--
+
+INSERT INTO `order_part` (`id`, `ws_id`, `task_id`, `part`, `qty`, `estimated`, `state`) VALUES
+(1, '51', '2', '1', 0, 1000, 'replaced'),
+(2, '51', '2', '1', 0, 1000, 'replaced'),
+(3, '51', '2', '2', 0, 5000, 'replaced'),
+(4, '51', '2', '1', 1, 2000, 'replaced'),
+(5, '51', '2', '4', 2, 15000, 'replaced'),
+(6, '51', '2', '1', 1, 2000, 'replaced'),
+(7, '51', '2', '4', 2, 15000, 'replaced'),
+(8, '51', '2', '3', 1, 1000, 'replaced'),
+(9, '51', '2', '4', 1, 1000, 'replaced'),
+(10, '52', '1', '1', 0, 0, 'replaced'),
+(11, '52', '1', '1', 0, 0, 'replaced'),
+(12, '52', '1', '3', 100, 100, 'replaced'),
+(13, '52', '3', '1', 0, 0, 'replaced'),
+(14, '51', '1', '2', 1, 1111, 'replaced');
 
 -- --------------------------------------------------------
 
@@ -10435,15 +10478,19 @@ CREATE TABLE `task` (
   `inventory` varchar(32) DEFAULT NULL,
   `serial` varchar(32) NOT NULL,
   `fault` varchar(32) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0
+  `status` varchar(64) NOT NULL DEFAULT '0',
+  `other` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`id`, `ws_id`, `device`, `brand`, `mfd`, `ecv`, `inventory`, `serial`, `fault`, `status`) VALUES
-(1, '47', 'test', 'test', '2022-08-01', 121212, 'test', 'test', 'test', 0);
+INSERT INTO `task` (`id`, `ws_id`, `device`, `brand`, `mfd`, `ecv`, `inventory`, `serial`, `fault`, `status`, `other`) VALUES
+(1, '51', 'System Unit', 'Samsung', '2022-09-06', 1212, '0', '1000', 'Cracked', 'replaced', 'other'),
+(4, '52', 'Monitor', 'Dell', '0000-00-00', 0, '0', '8', 'Damaged', 'replaced', 'other'),
+(4, '52', 'System Unit', 'Samsung', '0000-00-00', 0, '0', '86', 'Damaged', 'replaced', 'other'),
+(4, '52', 'System Unit', 'Samsung', '0000-00-00', 0, '0', '87', 'Damaged', 'replaced', 'other');
 
 -- --------------------------------------------------------
 
@@ -10452,6 +10499,7 @@ INSERT INTO `task` (`id`, `ws_id`, `device`, `brand`, `mfd`, `ecv`, `inventory`,
 --
 
 CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `username` varchar(10) NOT NULL,
   `name` varchar(255) NOT NULL,
   `nic` varchar(10) NOT NULL,
@@ -10466,8 +10514,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`username`, `name`, `nic`, `mobile`, `workplace`, `position`, `email`, `member`) VALUES
-('abc', 'test Name', '0000000000', '0000000000', 'TestPlace', 'TestPosition', 'testEmail', 0);
+INSERT INTO `user` (`id`, `username`, `name`, `nic`, `mobile`, `workplace`, `position`, `email`, `member`) VALUES
+(1, 'abc', 'test Name', '123456', '077', 'TestPlace', 'TestPosition', 'testEmail', 0);
 
 -- --------------------------------------------------------
 
@@ -10499,7 +10547,11 @@ INSERT INTO `workshop` (`id`, `ws_id`, `district`, `zone`, `level`, `coordinator
 (46, '2022/Mat/M', 'Matara', 'Morawaka', 'Province', 'admin', 0, 2022, '0000-00-00', 0),
 (47, '2022/Ham/Ham/47', 'Hambantota', 'Hambantota', 'Province', 'admin', 0, 2022, '0000-00-00', 0),
 (48, '2022/Mat/Gal/48', 'Matale', 'Galewala', 'Province', 'admin', 0, 2022, '0000-00-00', 0),
-(49, '2022/Col/Col/49', 'Colombo', 'Colombo', 'Zone', 'admin', 0, 2022, '0000-00-00', 0);
+(49, '2022/Col/Col/49', 'Colombo', 'Colombo', 'Zone', 'admin', 0, 2022, '0000-00-00', 0),
+(50, '2022/Kan/Gam/50', 'Kandy', 'Gampola', 'Province', 'admin', 0, 2022, '0000-00-00', 0),
+(51, '2022/Kan/Wat/51', 'Kandy', 'Wathegama', 'Province', 'admin', 15000, 0, '2022-09-04', 0),
+(52, '2022/Nuw/Han/52', 'Nuwara Eliya', 'Hanguranketha', 'Province', 'user', 1000, 0, '2022-09-09', 1),
+(53, '2022/Man/Man/53', 'Mannar', 'Mannar', 'Zone', 'admin', 1210000, 0, '2022-09-07', 0);
 
 -- --------------------------------------------------------
 
@@ -10530,6 +10582,12 @@ INSERT INTO `ws_level` (`ws_level_id`, `ws_level`) VALUES
 -- Indexes for table `device`
 --
 ALTER TABLE `device`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fault`
+--
+ALTER TABLE `fault`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -10572,13 +10630,13 @@ ALTER TABLE `school_id`
 -- Indexes for table `task`
 --
 ALTER TABLE `task`
-  ADD PRIMARY KEY (`id`,`ws_id`);
+  ADD PRIMARY KEY (`id`,`ws_id`,`serial`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`username`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `workshop`
@@ -10597,10 +10655,16 @@ ALTER TABLE `device`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `fault`
+--
+ALTER TABLE `fault`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `models`
@@ -10612,7 +10676,7 @@ ALTER TABLE `models`
 -- AUTO_INCREMENT for table `order_part`
 --
 ALTER TABLE `order_part`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `r_parts`
@@ -10621,10 +10685,16 @@ ALTER TABLE `r_parts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `workshop`
 --
 ALTER TABLE `workshop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -334,8 +334,6 @@ function readTableFault(state_complete) {
 function readTableParts() {
 
     $('#tbl_parts #tbody_parts tr').each(function () {
-
-
         var part_id = $(this).find("td").eq(0).html();
         var part = $(this).find("td").eq(1).html();
         var qty = $(this).find("td").eq(2).html();
@@ -568,13 +566,45 @@ function addToRTable() {
     val_res = select_res.split("-");
     alert(select_res);
     markup_res = "<tr contenteditable='true' id="
-        + val_res[1] + "><td>"
-        + val_res[1] + "</td><td>"
-        + val_res[1] + "</td><td>"
+        + val_res[0] + "><td>"
         + val_res[0] + "</td><td>"
-        + val_res[0] + "</td></tr>";
+        + val_res[1] + "</td><td>"
+        + val_res[2] + "</td><td>"
+        + val_res[3] + "</td><td>"
+        + val_res[4] + "</td></tr>";
 
     tbody_resource_p = "#tbody_resource_p";
     tableBody_parts = $(tbody_resource_p);
     tableBody_parts.append(markup_res);
+}
+function readTableRePerson() {
+
+    $('#tbl_parts #tbody_parts tr').each(function () {
+        var part_id = $(this).find("td").eq(0).html();
+        var part = $(this).find("td").eq(1).html();
+        var qty = $(this).find("td").eq(2).html();
+        var estimated = $(this).find("td").eq(3).html();
+        var status = $(this).find("td").eq(4).html();
+        alert(status);
+        $.ajax({
+            url: "addTaskPart.php",
+            type: "POST",
+            data: {
+                // ws_id_task_hid: ws_id_task_hid,
+                // task_id_task_hid: task_id_task_hid,
+                part_id: part_id,
+                part: part,
+                qty: qty,
+                estimated: estimated,
+                status: status,
+
+            },
+            success: function (response) {
+                // window.location.href = "home.php";
+            }
+
+
+        });
+    });
+
 }

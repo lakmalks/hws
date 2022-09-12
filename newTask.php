@@ -101,13 +101,13 @@ if (isset($_SESSION['username'])) {
 
                                     // Load resource persons for workshop from list
                                     <?php
-                                    $q = "SELECT distinct name,nic,mobile,workplace FROM user";
+                                    $q = "SELECT distinct id,name,nic,mobile,workplace FROM user";
                                     $r_resource_p = $conn->query($q);
                                     ?>
 
                                     <?php
                                     while ($row = mysqli_fetch_array($r_resource_p)) {
-                                        $str='['.$row["name"].']'.'-'.'['.$row["workplace"].']'. '-'.'['.$row["mobile"].']';
+                                        $str=$row["id"].'-'.$row["mobile"].'-'.$row["name"]. '-'.$row["nic"]. '-'.$row["workplace"];
                                     ?>
                                         <option value="<?php echo $str ?>"><?php echo $str; ?></option>
                                     <?php
@@ -130,7 +130,8 @@ if (isset($_SESSION['username'])) {
 
                         <table class="table table-striped" id="tbl_resource_p" name="tbl_resource_p">
                             <tr id="0">
-                                <th>#</th>
+                                <th>#id</th>
+                                <th>mob</th>
                                 <th>Name</th>
                                 <th>NIC</th>
                                 <th>Work place</th>
