@@ -17,7 +17,7 @@ $status_td = $_POST["status_td"];
 // $other_td = $_POST['other_td'];
 $other_td = 'other';
 
-$sql = "INSERT INTO task VALUES ('$task_id_task_hid','$ws_id_task_hid','$device_td','$brand_td','$mfd_td','$ecv_td','$inv_td','$serial_td','$fault_td','$status_td','$other_td')";
+$sql = "INSERT INTO task VALUES ('$task_id_task_hid','$ws_id_task_hid','$device_td','$brand_td','$mfd_td','$ecv_td','$inv_td','$serial_td','$fault_td','$status_td','$other_td', CURRENT_TIMESTAMP)";
 if (mysqli_query($link, $sql)) {
     echo "Records added successfully.";
 } else {

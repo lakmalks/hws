@@ -24,14 +24,4 @@ $result = $conn->query($q);
                                                         echo $row["schName"]; ?></option>
     <?php
     }
-
-
-
-
-
-
-
-
-
-
     ?>

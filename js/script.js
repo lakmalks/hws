@@ -559,12 +559,14 @@ function loadTask() {
 
 // page NewTask functions-----------------------------------------------
 function addToRTable() {
+    
     tblid_res = "#tbl_resource_p tr:last";
     // tbl_res = $(tblid_res).attr('id');
     // count_res = parseInt(tbl_res) + 1;
     select_res = document.getElementById("task_resource_per").value;
     val_res = select_res.split("-");
-    alert(select_res);
+    // alert(select_res);
+    var rp_id_chk;
     markup_res = "<tr contenteditable='true' id="
         + val_res[0] + "><td>"
         + val_res[0] + "</td><td>"
@@ -573,38 +575,60 @@ function addToRTable() {
         + val_res[3] + "</td><td>"
         + val_res[4] + "</td></tr>";
 
-    tbody_resource_p = "#tbody_resource_p";
-    tableBody_parts = $(tbody_resource_p);
-    tableBody_parts.append(markup_res);
+    $('#tbl_resource_p #tbody_resource_p tr').each(function () {
+         rp_id_chk = $(this).find("td").eq(0).html();
+    });
+    
+        if (rp_id_chk!=val_res[0]){
+            tbody_resource_p = "#tbody_resource_p";
+            tableBody_parts = $(tbody_resource_p);
+            tableBody_parts.append(markup_res);
+        }else{
+            alert("Already Added");
+        }
+
 }
 function readTableRePerson() {
 
-    $('#tbl_parts #tbody_parts tr').each(function () {
-        var part_id = $(this).find("td").eq(0).html();
-        var part = $(this).find("td").eq(1).html();
-        var qty = $(this).find("td").eq(2).html();
-        var estimated = $(this).find("td").eq(3).html();
-        var status = $(this).find("td").eq(4).html();
-        alert(status);
+    $('#tbl_resource_p #tbody_resource_p tr').each(function () {
+        var rp_id = $(this).find("td").eq(0).html();
+        alert(rp_id);
         $.ajax({
-            url: "addTaskPart.php",
+            url: "add_rp_ws.php",
             type: "POST",
             data: {
                 // ws_id_task_hid: ws_id_task_hid,
                 // task_id_task_hid: task_id_task_hid,
-                part_id: part_id,
-                part: part,
-                qty: qty,
-                estimated: estimated,
-                status: status,
+                rp_id: rp_id,
+                
 
             },
             success: function (response) {
-                // window.location.href = "home.php";
+                // window.location.href = "workshopInfo.php";
             }
 
 
         });
     });
 
+}
+
+// make report----------------------------------------
+function loadTaskForReport() {
+
+    var select = document.getElementById("rep_ws_id");
+    var selected_id = select.options[select.selectedIndex].value;
+
+    $.ajax({
+        url: "loadSch.php",
+        type: "POST",
+        data: {
+            selected_id: selected_id
+        },
+        cache: false,
+        success: function (result) {
+            $("#rep_task").html(result);
+            // alert(result);
+        }
+    });
 }

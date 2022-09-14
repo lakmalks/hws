@@ -68,10 +68,10 @@ if (isset($_SESSION['username'])) {
                 <div class="row">
                     <div class="form-group col-md-3">
                         <!-- nc - not completed -->
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="nc_ws_id" id="nc_ws_id" onChange="loadTask()" required>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="rep_ws_id" id="rep_ws_id" onChange="loadTaskForReport()" required>
                             <option selected value="na">Select Workshop</option>
                             <?php
-                            $q = "SELECT distinct id,ws_id FROM task where coordinator='$user'";
+                            $q = "SELECT id,ws_id FROM workshop where coordinator='$user'";
                             $result = $conn->query($q);
                             ?>
 
@@ -86,22 +86,19 @@ if (isset($_SESSION['username'])) {
 
 
                     </div>
-
                     <div class="form-group col-md-3">
-
-                        <!-- <?php
-                        // $q = "SELECT distinct census,schName FROM school_id where zone='$zone'";
-                        // $result = $conn->query($q); -->
-                        // ?>
-                         -->
-                        <!-- <div class="label">School</div> -->
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="task_school" id="task_school" required>
-                            <option value="">Select School</option>
-
+                        <!-- nc - not completed -->
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="rep_task" id="rep_task"  required>
+                            <option selected value="na">Select Workshop</option>
+                            
                         </select>
+
+
                     </div>
+
+                
                 </div>
-                <button class="btn btn-primary" type="submit">Add New task to this Workshop</button>
+                <button class="btn btn-primary" type="button">View</button>
             </form>
 
 

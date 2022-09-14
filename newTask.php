@@ -60,7 +60,7 @@ if (isset($_SESSION['username'])) {
 
         <br>
         <div class="container">
-            <form action="workshopInfo.php"> <br>
+            <form> <br>
                 <div class="row">
                     <div class='col-md-6'>
                         <div class="row">
@@ -147,7 +147,7 @@ if (isset($_SESSION['username'])) {
                 <div class='row'>
                 <div class="d-grid gap-1">
                     <!-- <div class="form-group col-md-12"> -->
-                        <button class="btn btn-danger" type="submit">Add New task to this Workshop</button>
+                        <button class="btn btn-danger" type="button" onclick="readTableRePerson()">Add New task to this Workshop</button>
                     </div>
                 </div>
             </form>
