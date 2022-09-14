@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2022 at 08:39 PM
+-- Generation Time: Sep 14, 2022 at 09:31 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -189,7 +189,11 @@ INSERT INTO `order_part` (`id`, `ws_id`, `task_id`, `part`, `qty`, `estimated`, 
 (11, '52', '1', '1', 0, 0, 'replaced'),
 (12, '52', '1', '3', 100, 100, 'replaced'),
 (13, '52', '3', '1', 0, 0, 'replaced'),
-(14, '51', '1', '2', 1, 1111, 'replaced');
+(14, '51', '1', '2', 1, 1111, 'replaced'),
+(15, '50', '1', '3', 1, 1400, 'replaced'),
+(16, '50', '1', '3', 1, 1400, 'replaced'),
+(17, '53', '4', '3', 1, 100, 'guided'),
+(18, '53', '4', '', 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -10479,18 +10483,27 @@ CREATE TABLE `task` (
   `serial` varchar(32) NOT NULL,
   `fault` varchar(32) NOT NULL,
   `status` varchar(64) NOT NULL DEFAULT '0',
-  `other` varchar(255) NOT NULL
+  `other` varchar(255) NOT NULL,
+  `log` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`id`, `ws_id`, `device`, `brand`, `mfd`, `ecv`, `inventory`, `serial`, `fault`, `status`, `other`) VALUES
-(1, '51', 'System Unit', 'Samsung', '2022-09-06', 1212, '0', '1000', 'Cracked', 'replaced', 'other'),
-(4, '52', 'Monitor', 'Dell', '0000-00-00', 0, '0', '8', 'Damaged', 'replaced', 'other'),
-(4, '52', 'System Unit', 'Samsung', '0000-00-00', 0, '0', '86', 'Damaged', 'replaced', 'other'),
-(4, '52', 'System Unit', 'Samsung', '0000-00-00', 0, '0', '87', 'Damaged', 'replaced', 'other');
+INSERT INTO `task` (`id`, `ws_id`, `device`, `brand`, `mfd`, `ecv`, `inventory`, `serial`, `fault`, `status`, `other`, `log`) VALUES
+(1, '50', 'UPS', 'Samsung', '2022-09-01', 1212, '1200', '100', 'Other', 'replaced', 'other', '2022-09-14 17:29:06'),
+(1, '51', 'System Unit', 'Samsung', '2022-09-06', 1212, '0', '1000', 'Cracked', 'replaced', 'other', '2022-09-14 17:29:06'),
+(1, '53', 'Monitor', 'Dell', '0000-00-00', 0, '0', '400', 'Damaged', 'repaired', 'other', '2022-09-14 17:29:06'),
+(2, '50', 'Monitor', 'Dell', '0000-00-00', 0, '0', '10100', 'Damaged', 'repaired', 'other', '2022-09-14 17:29:06'),
+(2, '53', 'Monitor', 'Dell', '0000-00-00', 0, '0', '500', 'Damaged', 'repaired', 'other', '2022-09-14 17:29:06'),
+(3, '50', 'Monitor', 'Dell', '0000-00-00', 0, '0', '100', 'Damaged', 'repaired', 'other', '2022-09-14 17:29:06'),
+(3, '53', 'Other', 'Dell', '2022-08-28', 600, '0', '0001', 'Damaged', 'repaired', 'other', '2022-09-14 17:29:58'),
+(4, '52', 'Monitor', 'Dell', '0000-00-00', 0, '0', '8', 'Damaged', 'replaced', 'other', '2022-09-14 17:29:06'),
+(4, '52', 'System Unit', 'Samsung', '0000-00-00', 0, '0', '86', 'Damaged', 'replaced', 'other', '2022-09-14 17:29:06'),
+(4, '52', 'System Unit', 'Samsung', '0000-00-00', 0, '0', '87', 'Damaged', 'replaced', 'other', '2022-09-14 17:29:06'),
+(4, '53', 'Monitor', 'Dell', '2022-08-28', 1000, '1', '1000', 'Cracked', 'repaired', 'other', '2022-09-14 17:31:54'),
+(4, '53', 'System Unit', 'Dell', '2022-08-28', 35000, '2', '2000', 'Other', 'guided', 'other', '2022-09-14 17:31:54');
 
 -- --------------------------------------------------------
 
@@ -10515,7 +10528,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `name`, `nic`, `mobile`, `workplace`, `position`, `email`, `member`) VALUES
-(1, 'abc', 'test Name', '123456', '077', 'TestPlace', 'TestPosition', 'testEmail', 0);
+(1, 'abc', 'test Name', '123456', '077', 'TestPlace', 'TestPosition', 'testEmail', 0),
+(2, 'kamal', 'Kamal', '123456', '07711', 'Galewela', 'Teacher', 'teacher@123', 0);
 
 -- --------------------------------------------------------
 
@@ -10533,25 +10547,26 @@ CREATE TABLE `workshop` (
   `allocate` float NOT NULL,
   `expense` float NOT NULL,
   `date` date NOT NULL,
-  `state` tinyint(1) NOT NULL DEFAULT 0
+  `state` tinyint(1) NOT NULL DEFAULT 0,
+  `log` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `workshop`
 --
 
-INSERT INTO `workshop` (`id`, `ws_id`, `district`, `zone`, `level`, `coordinator`, `allocate`, `expense`, `date`, `state`) VALUES
-(1, 'aaaaq', 'aaa', 'aaa', 'aaa', 'aaa', 12, 12, '2022-08-01', 1),
-(44, '2022/Jaf/I', 'Jaffna', 'Islands', 'Province', 'admin', 0, 2022, '0000-00-00', 1),
-(45, '2022/Jaf/I', 'Jaffna', 'Islands', 'Zone', 'admin', 0, 2022, '0000-00-00', 0),
-(46, '2022/Mat/M', 'Matara', 'Morawaka', 'Province', 'admin', 0, 2022, '0000-00-00', 0),
-(47, '2022/Ham/Ham/47', 'Hambantota', 'Hambantota', 'Province', 'admin', 0, 2022, '0000-00-00', 0),
-(48, '2022/Mat/Gal/48', 'Matale', 'Galewala', 'Province', 'admin', 0, 2022, '0000-00-00', 0),
-(49, '2022/Col/Col/49', 'Colombo', 'Colombo', 'Zone', 'admin', 0, 2022, '0000-00-00', 0),
-(50, '2022/Kan/Gam/50', 'Kandy', 'Gampola', 'Province', 'admin', 0, 2022, '0000-00-00', 0),
-(51, '2022/Kan/Wat/51', 'Kandy', 'Wathegama', 'Province', 'admin', 15000, 0, '2022-09-04', 0),
-(52, '2022/Nuw/Han/52', 'Nuwara Eliya', 'Hanguranketha', 'Province', 'user', 1000, 0, '2022-09-09', 1),
-(53, '2022/Man/Man/53', 'Mannar', 'Mannar', 'Zone', 'admin', 1210000, 0, '2022-09-07', 0);
+INSERT INTO `workshop` (`id`, `ws_id`, `district`, `zone`, `level`, `coordinator`, `allocate`, `expense`, `date`, `state`, `log`) VALUES
+(1, 'aaaaq', 'aaa', 'aaa', 'aaa', 'aaa', 12, 12, '2022-08-01', 1, '2022-09-14 17:20:15'),
+(44, '2022/Jaf/I', 'Jaffna', 'Islands', 'Province', 'admin', 0, 2022, '0000-00-00', 1, '2022-09-14 17:20:15'),
+(45, '2022/Jaf/I', 'Jaffna', 'Islands', 'Zone', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
+(46, '2022/Mat/M', 'Matara', 'Morawaka', 'Province', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
+(47, '2022/Ham/Ham/47', 'Hambantota', 'Hambantota', 'Province', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
+(48, '2022/Mat/Gal/48', 'Matale', 'Galewala', 'Province', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
+(49, '2022/Col/Col/49', 'Colombo', 'Colombo', 'Zone', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
+(50, '2022/Kan/Gam/50', 'Kandy', 'Gampola', 'Province', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
+(51, '2022/Kan/Wat/51', 'Kandy', 'Wathegama', 'Province', 'admin', 15000, 0, '2022-09-04', 0, '2022-09-14 17:20:15'),
+(52, '2022/Nuw/Han/52', 'Nuwara Eliya', 'Hanguranketha', 'Province', 'user', 1000, 0, '2022-09-09', 1, '2022-09-14 17:20:15'),
+(53, '2022/Man/Man/53', 'Mannar', 'Mannar', 'Zone', 'admin', 1210000, 0, '2022-09-07', 0, '2022-09-14 17:20:15');
 
 -- --------------------------------------------------------
 
@@ -10573,6 +10588,26 @@ INSERT INTO `ws_level` (`ws_level_id`, `ws_level`) VALUES
 (1001, 'Province'),
 (1002, 'Zone'),
 (1003, 'School');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ws_rp`
+--
+
+CREATE TABLE `ws_rp` (
+  `ws_id` varchar(16) NOT NULL,
+  `task_id` varchar(16) NOT NULL,
+  `rp_id` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ws_rp`
+--
+
+INSERT INTO `ws_rp` (`ws_id`, `task_id`, `rp_id`) VALUES
+('53', '4', '1'),
+('53', '4', '2');
 
 --
 -- Indexes for dumped tables
@@ -10645,6 +10680,12 @@ ALTER TABLE `workshop`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ws_rp`
+--
+ALTER TABLE `ws_rp`
+  ADD PRIMARY KEY (`task_id`,`rp_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -10676,7 +10717,7 @@ ALTER TABLE `models`
 -- AUTO_INCREMENT for table `order_part`
 --
 ALTER TABLE `order_part`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `r_parts`
@@ -10688,7 +10729,7 @@ ALTER TABLE `r_parts`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `workshop`

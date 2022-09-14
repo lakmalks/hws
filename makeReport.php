@@ -64,7 +64,7 @@ if (isset($_SESSION['username'])) {
     Please select workshop and then select the school.
    
 </div>
-            <form action="workshopInfo.php"> <br>
+            <form action="create_report_pdf.php"> <br>
                 <div class="row">
                     <div class="form-group col-md-3">
                         <!-- nc - not completed -->
@@ -98,7 +98,8 @@ if (isset($_SESSION['username'])) {
 
                 
                 </div>
-                <button class="btn btn-primary" type="button">View</button>
+                
+                <button class="btn btn-primary" type="submit">View</button>
             </form>
 
 
