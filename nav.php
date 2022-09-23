@@ -55,6 +55,18 @@ if (isset($_SESSION['username'])) {
                         <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Resource persons
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <!-- <li><a class="dropdown-item" href="new_task.php">New Task</a></li> -->
+                        <li><a class="dropdown-item" href="add_rPerson.php">Add New</a></li>
+                        <li><a class="dropdown-item" href="view_rPerson.php">View</a></li>
+
+                        <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                    </ul>
+                </li>
             </ul>
         </div>
         <form class="d-flex text-light fs-3 text-center " action="logout.php">

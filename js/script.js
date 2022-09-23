@@ -191,10 +191,12 @@ function addTemp() {
     year = date.split("-");
     ws_id = year[0] + "/" + id_dis + "/" + id_zone + "/" + ws_count;
 
+    lab_type=document.getElementById("lab_type");
+    ws_lab_type=lab_type.options[lab_type.selectedIndex].text;
 
     // school = sch;
     ws_level = ws_level;
-    expType = exp;
+    exp_type = exp;
     date = date;
     expVal = exp_val;
 
@@ -203,14 +205,14 @@ function addTemp() {
     $("#ws_id_div").text("Work shop Id : " + ws_id);
     $("#user_div").text("ws level : " + ws_level);
 
-    $("#dis_div").text("District : : " + ws_level);
-    $("#zone_div").text("Zone : " + ws_level);
+    $("#dis_div").text("District : : " + district);
+    $("#zone_div").text("Zone : " + zone);
     // $("#sch_div").text("school : " + sch);
     $("#ws_level_div").text("Level : " + ws_level);
-    $("#exp_div_div").text("Expenditure : " + expVal);
-    $("#allocated_div").text("Allocated amt : " + ws_level);
+    $("#exp_div_div").text("Expenditure : " + exp_type);
+    $("#allocated_div").text("Allocated amt : " +exp_val);
     $("#date_div").text("Date : " + date);
-    $("#lab_type_div").text("Lab Type : " + ws_level);
+    $("#lab_type_div").text("Lab Type : " + ws_lab_type);
 
 
 
@@ -246,7 +248,7 @@ function addTempToDb() {
             zone: zone,
             // sch: sch,
             ws_level: ws_level,
-            expType: expType,
+            exp_type: exp_type,
             date: date,
             exp_val: exp_val
         },

@@ -92,7 +92,7 @@ $nc_ws=load_val($sql_nc_ws)[0]["count('ws_id')"];
             <div class="card-body">
               <h4 class="card-title">Ongoing Workshops : [<?php echo $nc_ws ?>]</h4>
               <p class="card-text">You have # <?php echo $nc_ws ?> ongoing Workshops</p>
-              <a href="completed_ws.php" class="btn btn-secondary">More Info</a>
+              <a href="on_going_ws.php" class="btn btn-secondary">More Info</a>
             </div>
           </div>
         </div>
@@ -108,7 +108,17 @@ $nc_ws=load_val($sql_nc_ws)[0]["count('ws_id')"];
             </div>
           </div>
         </div>
-
+        <div class="col">
+          <div class="card back-color shadow-lg p-3 mb-5 rounded">
+            <!-- <img class="card-img-top" src="img_avatar1.png" alt="Card image"> -->
+            <img class="card-img-top" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title">Resource person</h4>
+              <p class="card-text">Some example text.</p>
+              <a href="#" class="btn btn-primary">See Profile</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

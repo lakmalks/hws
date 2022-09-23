@@ -188,7 +188,7 @@ if ($result->num_rows > 0) {
                     </div>
                 </div>
                 <div class="page">
-                    <div class="title">Lab type :</div>
+                    <div class="title" >Lab type :</div>
                     <div class="field">
                         <div class="label">Date</div>
                         <input type="date" id="ws_date" required />
@@ -264,7 +264,7 @@ if ($result->num_rows > 0) {
             </form>
         </div>
         <div class="field btns">
-            <button class="homebtn" onclick="window.location.href='home.php';">Home</button>
+            <!-- <button class="homebtn" onclick="window.location.href='home.php';">Home</button> -->
         </div>
 
 
