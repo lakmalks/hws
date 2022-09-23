@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 14, 2022 at 09:31 PM
+-- Generation Time: Sep 23, 2022 at 08:24 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -10545,7 +10545,7 @@ CREATE TABLE `workshop` (
   `level` varchar(16) NOT NULL,
   `coordinator` varchar(10) NOT NULL,
   `allocate` float NOT NULL,
-  `expense` float NOT NULL,
+  `exp_type` varchar(16) NOT NULL,
   `date` date NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT 0,
   `log` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -10555,18 +10555,11 @@ CREATE TABLE `workshop` (
 -- Dumping data for table `workshop`
 --
 
-INSERT INTO `workshop` (`id`, `ws_id`, `district`, `zone`, `level`, `coordinator`, `allocate`, `expense`, `date`, `state`, `log`) VALUES
-(1, 'aaaaq', 'aaa', 'aaa', 'aaa', 'aaa', 12, 12, '2022-08-01', 1, '2022-09-14 17:20:15'),
-(44, '2022/Jaf/I', 'Jaffna', 'Islands', 'Province', 'admin', 0, 2022, '0000-00-00', 1, '2022-09-14 17:20:15'),
-(45, '2022/Jaf/I', 'Jaffna', 'Islands', 'Zone', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
-(46, '2022/Mat/M', 'Matara', 'Morawaka', 'Province', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
-(47, '2022/Ham/Ham/47', 'Hambantota', 'Hambantota', 'Province', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
-(48, '2022/Mat/Gal/48', 'Matale', 'Galewala', 'Province', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
-(49, '2022/Col/Col/49', 'Colombo', 'Colombo', 'Zone', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
-(50, '2022/Kan/Gam/50', 'Kandy', 'Gampola', 'Province', 'admin', 0, 2022, '0000-00-00', 0, '2022-09-14 17:20:15'),
-(51, '2022/Kan/Wat/51', 'Kandy', 'Wathegama', 'Province', 'admin', 15000, 0, '2022-09-04', 0, '2022-09-14 17:20:15'),
-(52, '2022/Nuw/Han/52', 'Nuwara Eliya', 'Hanguranketha', 'Province', 'user', 1000, 0, '2022-09-09', 1, '2022-09-14 17:20:15'),
-(53, '2022/Man/Man/53', 'Mannar', 'Mannar', 'Zone', 'admin', 1210000, 0, '2022-09-07', 0, '2022-09-14 17:20:15');
+INSERT INTO `workshop` (`id`, `ws_id`, `district`, `zone`, `level`, `coordinator`, `allocate`, `exp_type`, `date`, `state`, `log`) VALUES
+(54, '2022/Gal/Amb/1', 'Galle', 'Ambalangoda', 'School', 'admin', 3333, 'School', '2022-09-01', 0, '0000-00-00 00:00:00'),
+(55, '2022/Nuw/Hat/55', 'Nuwara Eliya', 'Hatton', 'Zone', 'admin', 444, 'School', '2022-09-07', 0, '0000-00-00 00:00:00'),
+(56, '2022/Mat/Wil/56', 'Matale', 'Wilgamuwa', 'School', 'admin', 555, 'Province', '2022-09-05', 0, '0000-00-00 00:00:00'),
+(57, '2022/Gam/Kel/57', 'Gampaha', 'Kelaniya', 'Province', 'admin', 6666, 'Zone', '2022-08-31', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -10735,7 +10728,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `workshop`
 --
 ALTER TABLE `workshop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
