@@ -65,3 +65,11 @@ function logout()
     //     $newURL = "index.php";
     //   header('Location: ' . $newURL);
 }
+function loadTaskId($sql){
+    global $conn;
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $val = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    return $val;
+}

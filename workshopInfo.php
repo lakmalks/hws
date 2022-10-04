@@ -4,19 +4,20 @@ include("conn.php");
 require_once("allFun.php");
 
 
-$scl = $_GET['task_school'];
-$ws_id = $_GET['nc_ws_id'];
+$scl = $_SESSION['sch'];
+$ws_id = $_SESSION['nc_ws_id'];
+$task_id = $_SESSION["task_id"];
 
 
 
-$sql_task = "SELECT max(id) FROM task WHERE ws_id='$ws_id'";
-$temp_task_result = taskCount($sql_task);
-$temp_task_id = $temp_task_result[0];
-$task_id = $temp_task_id["max(id)"] + 1;
+// $sql_task = "SELECT max(id) FROM task WHERE ws_id='$ws_id'";
+// $temp_task_result = taskCount($sql_task);
+// $temp_task_id = $temp_task_result[0];
+// $task_id = $temp_task_id["max(id)"] + 1;
 
 
-$_SESSION['ws_id_task'] = $ws_id;
-$_SESSION['task_id'] = $task_id;
+// $_SESSION['ws_id_task'] = $ws_id;
+// $_SESSION['task_id'] = $task_id;
 
 
 if (!isset($_SESSION['username'])) {
@@ -156,9 +157,10 @@ function loadOptions($c, $sql, $item)
                         <label for="device_fault">Status</label>
                         <select class="form-control" id="rep_state" name="rep_state" onchange="unhide_div(this)">
                             <option value="repaired" selected>Repaired</option>
-                            <option value="replaced">Part replaced</option>
-                            <option value="guided">Instructed</option>
+                            <option value="replaced">Repaired(with-part)</option>
+                            <option value="guided">Instructed(to-buy-part)</option>
                             <option value="discard">Discard</option>
+                            <option value="replaced">Replaced(New-Item)</option>
                         </select>
 
                     </div>
@@ -190,7 +192,7 @@ function loadOptions($c, $sql, $item)
                                 </select>
                             </div>
                             <div class="col">
-                            <label for="part_id">Part ID</label>
+                                <label for="part_id">Part ID</label>
                                 <input type="text" class="form-control" id="part_id" placeholder="part_id" readonly value=1>
                             </div>
                         </div>
@@ -278,15 +280,19 @@ function loadOptions($c, $sql, $item)
 
                     <div class="form-group col-md-6">
                         <div class="align-bottom">
-                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_finish" name="btn_finish" onclick="readTableFault()">Save and Finish</button>
+                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_finish" name="btn_finish" onclick="readTableFault(1)">Save and Finish</button>
 
                         </div>
 
                     </div>
                 </div>
         </div>
+
         </form>
     </div>
+
+
+
 </body>
 
 </html>

@@ -113,7 +113,7 @@ if ($result->num_rows > 0) {
 
 
                 <div class="page slide-page">
-                    <div class="title">Place:</div>
+                    <div class="title">Location :</div>
                     <div class="field">
                         <div class="label">District</div>
 
@@ -156,10 +156,10 @@ if ($result->num_rows > 0) {
                 </div>
 
                 <div class="page">
-                    <div class="title">Level:</div>
+                    <div class="title">Conducting :</div>
 
                     <div class="field">
-                        <div class="label">Level</div>
+                        <div class="label">Workshop Level</div>
                         <select id="ws_level" name="ws_level">
                             <option value="Ministry">Ministry </option>
                             <option value="Province">Province </option>
@@ -168,13 +168,14 @@ if ($result->num_rows > 0) {
                         </select>
                     </div>
                     <div class="field">
-                        <div class="label">Expenditure</div>
+                        <div class="label">Funded by :</div>
                         <select id="expend_source" name="expend_source">
                             <option value="Ministry">Ministry </option>
                             <option value="Province">Province </option>
                             <option value="Zone">Zone </option>
                             <option value="School">School </option>
                             <option value="no">No Expense </option>
+                            <option value="School">Other </option>
                         </select>
                     </div>
                     <div class="field">
@@ -188,7 +189,7 @@ if ($result->num_rows > 0) {
                     </div>
                 </div>
                 <div class="page">
-                    <div class="title" >Lab type :</div>
+                    <div class="title" >Workshop Date and Lab type :</div>
                     <div class="field">
                         <div class="label">Date</div>
                         <input type="date" id="ws_date" required />

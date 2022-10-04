@@ -1,15 +1,20 @@
 <?php
 session_start();
 include("conn.php");
-
-
-$ws_id_rp = $_SESSION["ws_id_task"];
-$task_id_rp= $_SESSION["task_id"];
-
+$nc_ws_id = $_POST["nc_ws_id"];
 $rp_id = $_POST["rp_id"];
+$nc_sch_id=$_POST['nc_sch_id'];
 
+$task_id_rp= $_SESSION["task_id"];
+$user=$_SESSION["username"];
 
-$sql = "INSERT INTO ws_rp VALUES ('$ws_id_rp','$task_id_rp', '$rp_id')";
+$_SESSION['sch']=$nc_sch_id;
+$_SESSION['nc_ws_id']=$nc_ws_id;
+
+$date = date('Y-m-d H:i:s');
+print_r($_SESSION);
+
+$sql = "INSERT INTO ws_rp VALUES ('$nc_ws_id','$task_id_rp', '$rp_id','$date','$user')";
 if (mysqli_query($link, $sql)) {
     echo "Records added successfully.";
 } else {

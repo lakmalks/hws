@@ -51,6 +51,9 @@
     
 		  <img class="card-img-top mx-auto" style="width:80%;" src="./images/logo.png" alt="Login Icon">
 		  <div class="card-body">
+		  <div>
+			Digital Education Infrastructure Maintenance Program
+		  </div>
 			  <!-- this form cant be submit directly as it has onsubmit return false -->
 		    <form id="form_login" action="" method="POST">
 			  <div class="form-group">

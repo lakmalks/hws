@@ -161,38 +161,38 @@ function loadSch() {
 
 function addTemp() {
 
-    select_district = document.getElementById("district");
+    var select_district = document.getElementById("district");
     district = select_district.options[select_district.selectedIndex].text;
 
-    select_zone = document.getElementById("zone");
+    var select_zone = document.getElementById("zone");
     zone = select_zone.options[select_zone.selectedIndex].text;
 
-    ws_dis = district.substring(0, 2);
-    ws_zone = zone.substring(0, 2);
+    // var ws_dis = district.substring(0, 2);
+    // var ws_zone = zone.substring(0, 2);
 
     // selectScl = document.getElementById("school");
     // sch = selectScl.options[selectScl.selectedIndex].text;
 
-    dateArr = $('#ws_date').val().split('/');
+    var dateArr = $('#ws_date').val().split('/');
     date = dateArr[0];
 
 
-    select = document.getElementById("ws_level");
+    var select = document.getElementById("ws_level");
     ws_level = select.options[select.selectedIndex].text;
 
-    select_exp = document.getElementById("expend_source");
+    var select_exp = document.getElementById("expend_source");
     exp = select_exp.options[select_exp.selectedIndex].text;
 
     // var exp_value=document.getElementById("allocated_amount").text;
     exp_val = $('#allocated_amount').val();
-    ws_count = $('#ws_coun').text();
-    id_dis = district.substring(0, 3);
-    id_zone = zone.substring(0, 3)
-    year = date.split("-");
+    var ws_count = $('#ws_coun').text();
+    var id_dis = district.substring(0, 3);
+    var id_zone = zone.substring(0, 3)
+    var year = date.split("-");
     ws_id = year[0] + "/" + id_dis + "/" + id_zone + "/" + ws_count;
 
-    lab_type=document.getElementById("lab_type");
-    ws_lab_type=lab_type.options[lab_type.selectedIndex].text;
+    var lab_type = document.getElementById("lab_type");
+    ws_lab_type = lab_type.options[lab_type.selectedIndex].text;
 
     // school = sch;
     ws_level = ws_level;
@@ -210,7 +210,7 @@ function addTemp() {
     // $("#sch_div").text("school : " + sch);
     $("#ws_level_div").text("Level : " + ws_level);
     $("#exp_div_div").text("Expenditure : " + exp_type);
-    $("#allocated_div").text("Allocated amt : " +exp_val);
+    $("#allocated_div").text("Allocated amt : " + exp_val);
     $("#date_div").text("Date : " + date);
     $("#lab_type_div").text("Lab Type : " + ws_lab_type);
 
@@ -321,7 +321,10 @@ function readTableFault(state_complete) {
 
             },
             success: function (response) {
-                // window.location.href = "home.php";
+                if(state_complete==1){
+                    window.location.href = "home.php";
+                }
+                
             }
 
 
@@ -367,19 +370,19 @@ function readTableParts() {
 
 // Device table
 function addRow(tbl) {
-    tblid1 = "#" + tbl + " tr:last";
-    tid1 = $(tblid1).attr('id');
-    lineNo1 = parseInt(tid1) + 1;
-    val1 = document.getElementById("selectedDevice").value;
+    var tblid1 = "#" + tbl + " tr:last";
+    var tid1 = $(tblid1).attr('id');
+    var lineNo1 = parseInt(tid1) + 1;
+    var val1 = document.getElementById("selectedDevice").value;
 
-    val_brand = document.getElementById("device_model").value;
-    val_mfd = document.getElementById("mfd").value;
-    val_ecv = document.getElementById("ecv").value;
+    var val_brand = document.getElementById("device_model").value;
+    var val_mfd = document.getElementById("mfd").value;
+    var val_ecv = document.getElementById("ecv").value;
 
-    val2 = document.getElementById("inventory").value;
-    val3 = document.getElementById("device_serial").value;
-    val_dev_fault = document.getElementById("device_fault").value;
-    val_rep_state = document.getElementById("rep_state").value;
+    var val2 = document.getElementById("inventory").value;
+    var val3 = document.getElementById("device_serial").value;
+    var val_dev_fault = document.getElementById("device_fault").value;
+    var val_rep_state = document.getElementById("rep_state").value;
 
     // val_rep_state = rep_state[rep_state.selectedIndex].id;
     // $("#r_parts").val(val_rep_state);
@@ -401,7 +404,7 @@ function addRow(tbl) {
 
     if (val3 != 0) {
 
-        markup1 = "<tr contenteditable='true' id="
+        var markup1 = "<tr contenteditable='true' id="
             + lineNo1 + "><td>"
             + lineNo1 + "</td><td>"
             + val1 + "</td><td>"
@@ -415,8 +418,8 @@ function addRow(tbl) {
             + val_dev_fault + "</td><td>"
             + val_rep_state + "</td></tr>";
 
-        tbody_fault = "#tbody_fault";
-        tableBody = $(tbody_fault);
+        var tbody_fault = "#tbody_fault";
+        var tableBody = $(tbody_fault);
         tableBody.append(markup1);
         $("#device_serial").addClass("form-control");
 
@@ -541,8 +544,8 @@ function loadPartID() {
 }
 function loadTask() {
 
-    var select = document.getElementById("nc_ws_id");
-    var selected_id = select.options[select.selectedIndex].value;
+    select = document.getElementById("nc_ws_id");
+    selected_id = select.options[select.selectedIndex].value;
 
     $.ajax({
         url: "loadSch.php",
@@ -559,63 +562,10 @@ function loadTask() {
 }
 
 
-// page NewTask functions-----------------------------------------------
-function addToRTable() {
-    
-    tblid_res = "#tbl_resource_p tr:last";
-    // tbl_res = $(tblid_res).attr('id');
-    // count_res = parseInt(tbl_res) + 1;
-    select_res = document.getElementById("task_resource_per").value;
-    val_res = select_res.split("-");
-    // alert(select_res);
-    var rp_id_chk;
-    markup_res = "<tr contenteditable='true' id="
-        + val_res[0] + "><td>"
-        + val_res[0] + "</td><td>"
-        + val_res[1] + "</td><td>"
-        + val_res[2] + "</td><td>"
-        + val_res[3] + "</td><td>"
-        + val_res[4] + "</td></tr>";
-
-    $('#tbl_resource_p #tbody_resource_p tr').each(function () {
-         rp_id_chk = $(this).find("td").eq(0).html();
-    });
-    
-        if (rp_id_chk!=val_res[0]){
-            tbody_resource_p = "#tbody_resource_p";
-            tableBody_parts = $(tbody_resource_p);
-            tableBody_parts.append(markup_res);
-        }else{
-            alert("Already Added");
-        }
-
-}
-function readTableRePerson() {
-
-    $('#tbl_resource_p #tbody_resource_p tr').each(function () {
-        var rp_id = $(this).find("td").eq(0).html();
-        alert(rp_id);
-        $.ajax({
-            url: "add_rp_ws.php",
-            type: "POST",
-            data: {
-                // ws_id_task_hid: ws_id_task_hid,
-                // task_id_task_hid: task_id_task_hid,
-                rp_id: rp_id,
-                
-
-            },
-            success: function (response) {
-                // window.location.href = "workshopInfo.php";
-            }
 
 
-        });
-    });
 
-}
-
-// make report----------------------------------------
+// make report-------------------------------------------------------------------------------------------------------------
 function loadTaskForReport() {
 
     var select = document.getElementById("rep_ws_id");
