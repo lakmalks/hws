@@ -12,9 +12,19 @@ if (isset($_SESSION['username'])) {
     // $user = "Login";
 }
 ?>
+  <link rel="stylesheet" type="text/css" href="./css/stylesOther.css">
+  <style>
+    .txt {
+      align-items: left;
+      text-align: left;
+      font-size: 25px;
+      font-weight: 500;
+      color:#FEFEFE;
+    }  
+  </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="home.php  ">DEIMP</a>
+    <div class="container">
+        <a class="navbar-brand navbar-dark" href="home.php  ">DEIMP</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,6 +50,7 @@ if (isset($_SESSION['username'])) {
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                         <!-- <li><a class="dropdown-item" href="new_task.php">New Task</a></li> -->
                         <li><a class="dropdown-item" href="newTask.php">New Task</a></li>
+                        <li><a class="dropdown-item" href="add_job_to_going_task.php">Add Job to task</a></li>
 
                         <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                     </ul>
@@ -92,7 +103,7 @@ if (isset($_SESSION['username'])) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" onclick="location.href='home.php'")>Yes</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='logout.php'")>Yes</button>
             </div>
         </div>
     </div>

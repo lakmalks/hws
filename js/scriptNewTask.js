@@ -47,7 +47,7 @@ function readTableRePerson() {
     $('#tbl_resource_p #tbody_resource_p tr').each(function () {
         
         var rp_id = $(this).find("td").eq(0).html();
-        // alert(rp_id);
+        alert(rp_id);
         $.ajax({
             url: "add_rp_ws.php",
             type: "POST",

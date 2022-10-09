@@ -53,5 +53,5 @@ if (isset($_SESSION['username'])) {
     });
 </script>
 
-
-</bo
+  
+</body>

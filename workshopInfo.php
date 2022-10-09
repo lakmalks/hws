@@ -25,7 +25,24 @@ if (!isset($_SESSION['username'])) {
     header('Location: ' . $newURL);
 }
 
+function loadJobID($c, $sql)
+{
 
+    $result = $c->query($sql);
+    if ($result) {
+        if ($result->num_rows > 0) {
+            $temp_v = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            $val = $temp_v[0]["max(job_id)"]+1;
+            // $val=$v['max'];
+        } else {
+            $val = 1;
+        }
+        // echo $val;
+    } else {
+        $val = 1;
+    }
+    return $val;
+}
 function loadOptions($c, $sql, $item)
 {
     $result = $c->query($sql);
@@ -82,6 +99,7 @@ function loadOptions($c, $sql, $item)
 
 <body>
     <script src="./js/script.js"></script>
+    <script src="./js/scriptWorkshopInfo.js"></script>
     <div class="container-fluid">
         </script>
 
@@ -93,6 +111,16 @@ function loadOptions($c, $sql, $item)
                     <div class="form-group col-md-12">
                         <h4>Workshop ID : <?php echo $ws_id ?> Task ID : <?php echo $task_id ?></h4>
                         <h4>School ID : <?php echo $scl ?></h4>
+
+
+                        <?php
+
+                        $sql_task = "SELECT max(job_id) FROM task WHERE ws_id='$ws_id' AND task_id='$task_id'";
+                        // loadJobID($conn, $sql_task)
+                        ?>
+                        <h4> JOB ID :
+                            <div id="div_job_id" name="div_job_id"><?php echo loadJobID($conn, $sql_task)?></div>
+                        </h4>
                         <div id="ws_id_task_hid"><?php echo $ws_id ?></div>
                         <div id="task_id_task_hid"><?php echo $task_id ?></div>
                         <hr>
@@ -172,11 +200,16 @@ function loadOptions($c, $sql, $item)
                     $op = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 }
                 ?>
+                <hr>
                 <div class="form-row " id="parts_div">
-                    <div class="form-group col-md-6 border border-secondary p-3">
+                    <div class="form-group col-md-12 border border-secondary p-3">
                         <div class="form-row">
                             <div class="col">
-                                <label for="r_parts">Parts replaced</label>
+                                <label for="dev_serial">Device Serial</label>
+                                <input type="text" class="form-control" id="dev_serial" placeholder="dev_serial" readonly>
+                            </div>
+                            <div class="col">
+                                <label for="r_parts">Replaced part</label>
                                 <select class="form-control" id="r_parts" name="r_parts" onchange='loadPartID()'>
                                     <?php
                                     foreach ($op as $opx) {
@@ -213,17 +246,18 @@ function loadOptions($c, $sql, $item)
                         </div>
 
                         <div class="form-row pt-2">
-                            <Button type="button" class="btn btn-secondary btn-lg btn-block" id="btn_add_r_parts" onclick="addRow2('tbl_parts')"> Add to Table >></button>
+                            <Button type="button" class="btn btn-secondary btn-lg btn-block" id="btn_add_r_parts" onclick="addPartsToTblRparts()"> Add to Table >></button>
                         </div>
 
                     </div>
 
-                    <div class="form-group col-md-6 p-3">
+                    <div class="form-group col-md-12 p-3">
 
                         <div class="form-group">
                             <label for="tbl_parts">Parts replaced</label>
                             <table class="table table-striped" id="tbl_parts" name="tbl_parts">
                                 <tr id="0">
+                                    <th>Dev Serial</th>
                                     <th>id</th>
                                     <th>Part</th>
                                     <th>Qty</th>
@@ -240,7 +274,11 @@ function loadOptions($c, $sql, $item)
                     <div class="form-group col-md-12">
                         <div class="align-bottom">
                         </div>
-                        <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="addRow('tbl_fault')"> Add task to Table</button>
+                        <!-- <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="addRow('tbl_fault')"> Add Device to Repaired Table</button> -->
+
+                        <!-- saveDeviceToDB -> scriptWorkshopInfo.js  -->
+                        <!-- <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="saveDevice()">Save This Device</button> -->
+                        <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="saveDeviceToDB()">Save This Device</button>
                     </div>
                 </div>
 
@@ -274,13 +312,13 @@ function loadOptions($c, $sql, $item)
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <div class="align-bottom">
-                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_save" name="btn_save" onclick="readTableFault()">Save</button>
+                            <!-- <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_save" name="btn_save" onclick="readTableFault()">Save</button> -->
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <div class="align-bottom">
-                            <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_finish" name="btn_finish" onclick="readTableFault(1)">Save and Finish</button>
+                            <!-- <button type="button" class="btn btn-danger btn-lg btn-block" id="btn_finish" name="btn_finish" onclick="readTableFault(1)">Save and Finish</button> -->
 
                         </div>
 

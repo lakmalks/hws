@@ -30,6 +30,7 @@ $nc_ws=load_val($sql_nc_ws)[0]["count('ws_id')"];
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="./css/stylesOther.css">
   <style>
     .divback {
       align-items: left;
@@ -39,14 +40,17 @@ $nc_ws=load_val($sql_nc_ws)[0]["count('ws_id')"];
     }
 
     .back-color {
-      background-color: blueviolet;
+      background-color: rgb(38, 41, 80);
       width: 400px;
+      color :aliceblue;
     }
 
     .user_lbl {
       font-size: 25px;
       font-weight: 500;
+      
     }
+    
   </style>
 
 </head>

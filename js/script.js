@@ -290,6 +290,41 @@ function addTask() {
 // const arr_part_repd = [];
 // const part_table = [];
 
+
+// function readTableParts() {
+
+//     $('#tbl_parts #tbody_parts tr').each(function () {
+//         var dev_serial = $(this).find("td").eq(0).html();
+//         var part_id = $(this).find("td").eq(1).html();
+//         var part = $(this).find("td").eq(2).html();
+//         var qty = $(this).find("td").eq(3).html();
+//         var estimated = $(this).find("td").eq(4).html();
+//         var status = $(this).find("td").eq(5).html();
+//         alert(status);
+//         $.ajax({
+//             url: "addTaskPart.php",
+//             type: "POST",
+//             data: {
+//                 // ws_id_task_hid: ws_id_task_hid,
+//                 // task_id_task_hid: task_id_task_hid,
+//                 dev_serial:dev_serial,
+//                 part_id: part_id,
+//                 part: part,
+//                 qty: qty,
+//                 estimated: estimated,
+//                 status: status,
+
+//             },
+//             success: function (response) {
+//                 // window.location.href = "home.php";
+//             }
+
+
+//         });
+//     });
+
+// }
+
 function readTableFault(state_complete) {
     readTableParts();
     $('#tbl_fault #tbody_fault tr').each(function () {
@@ -334,37 +369,6 @@ function readTableFault(state_complete) {
 
 
 
-
-}
-function readTableParts() {
-
-    $('#tbl_parts #tbody_parts tr').each(function () {
-        var part_id = $(this).find("td").eq(0).html();
-        var part = $(this).find("td").eq(1).html();
-        var qty = $(this).find("td").eq(2).html();
-        var estimated = $(this).find("td").eq(3).html();
-        var status = $(this).find("td").eq(4).html();
-        alert(status);
-        $.ajax({
-            url: "addTaskPart.php",
-            type: "POST",
-            data: {
-                // ws_id_task_hid: ws_id_task_hid,
-                // task_id_task_hid: task_id_task_hid,
-                part_id: part_id,
-                part: part,
-                qty: qty,
-                estimated: estimated,
-                status: status,
-
-            },
-            success: function (response) {
-                // window.location.href = "home.php";
-            }
-
-
-        });
-    });
 
 }
 
@@ -431,58 +435,22 @@ function addRow(tbl) {
     }
 }
 
-// adding value to repaired parts table
-function addRow2(tbl2) {
-    tblid2 = "#" + tbl2 + " tr:last";
-    tid2 = $(tblid2).attr('id');
-    lineNo2 = parseInt(tid2) + 1;
-    part_id_tbl = document.getElementById("part_id").value;
-    val4 = document.getElementById("r_parts").value;
-    val5 = document.getElementById("quantity").value;
-    val6 = document.getElementById("esti_price").value;
-    val7 = document.getElementById("rep_state").value;
-    markup2 = "<tr contenteditable='true' id="
-        + part_id_tbl + "><td>"
-        + part_id_tbl + "</td><td>"
-        + val4 + "</td><td>"
-        + val5 + "</td><td>"
-        + val6 + "</td><td>"
-        + val7 + "</td></tr>";
 
-    tbody_parts = "#tbody_parts";
-    tableBody_parts = $(tbody_parts);
-    tableBody_parts.append(markup2);
 
-    // temp_row = {};
-    // temp_row["r_parts"] = val4;
-    // temp_row["quantity"] = val5;
-    // temp_row["esti_price"] = val6;
-
-    // part_table.push(temp_row);
-    // len = part_table.length;
-
-    // p = 0
-    // while (p < len) {
-    //     x = part_table[p];
-
-    //     for (var i in x) {
-    //         console.log("key " + i + " has value " + x[i]);
-
-    //     } p = p + 1;
-
-    // }
-    // console.log("__________________________ ");
-}
 
 function unhide_div(item, op1, op2, divID) {
     it_val = item.value;
-
+    dev_serial=document.getElementById("device_serial").value;
+    $("#dev_serial").val(dev_serial);
     if (it_val == "guided" || it_val == "replaced") {
         $("#parts_div").show()
         // alert("hh")
     } else {
         $("#parts_div").hide(0)
     }
+
+
+
     // }
     // function save_to_arr() {
     //     device = document.getElementById("selectedDevice").value

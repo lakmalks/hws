@@ -19,7 +19,7 @@ function loadTable($sq)
     $res = $conn->query($sq);
 
     if (!$res->num_rows > 0) {
-        
+        echo "<h2>No record found</h2>";
     } else {
         $opt = mysqli_fetch_all($res, MYSQLI_ASSOC);
         foreach ($opt as $option) {
