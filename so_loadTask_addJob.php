@@ -4,7 +4,7 @@ $selected_id = $_POST["ws_id"];
 
 session_start();
 
-$q="SELECT DISTINCT task_id FROM task_school  where ws_id=$selected_id";
+$q="SELECT DISTINCT task_id FROM task_school  where ws_id=$selected_id AND st=0";
 
 $result = $conn->query($q);
 ?>

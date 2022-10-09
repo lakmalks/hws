@@ -51,6 +51,7 @@ if (isset($_SESSION['username'])) {
                         <!-- <li><a class="dropdown-item" href="new_task.php">New Task</a></li> -->
                         <li><a class="dropdown-item" href="newTask.php">New Task</a></li>
                         <li><a class="dropdown-item" href="add_job_to_going_task.php">Add Job to task</a></li>
+                        <li><a class="dropdown-item" href="on_going_task.php">On-Going task</a></li>
 
                         <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                     </ul>

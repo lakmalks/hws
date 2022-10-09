@@ -32,7 +32,7 @@ function loadJobID($c, $sql)
     if ($result) {
         if ($result->num_rows > 0) {
             $temp_v = mysqli_fetch_all($result, MYSQLI_ASSOC);
-            $val = $temp_v[0]["max(job_id)"]+1;
+            $val = $temp_v[0]["max(job_id)"] + 1;
             // $val=$v['max'];
         } else {
             $val = 1;
@@ -119,7 +119,7 @@ function loadOptions($c, $sql, $item)
                         // loadJobID($conn, $sql_task)
                         ?>
                         <h4> JOB ID :
-                            <div id="div_job_id" name="div_job_id"><?php echo loadJobID($conn, $sql_task)?></div>
+                            <div id="div_job_id" name="div_job_id"><?php echo loadJobID($conn, $sql_task) ?></div>
                         </h4>
                         <div id="ws_id_task_hid"><?php echo $ws_id ?></div>
                         <div id="task_id_task_hid"><?php echo $task_id ?></div>
@@ -270,15 +270,26 @@ function loadOptions($c, $sql, $item)
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="inputAddress2">Special Notes</label>
+                    <input type="text" class="form-control" id="sp_notes" placeholder="Add special notes">
+                </div>
                 <div class="form-row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <div class="align-bottom">
                         </div>
                         <!-- <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="addRow('tbl_fault')"> Add Device to Repaired Table</button> -->
 
                         <!-- saveDeviceToDB -> scriptWorkshopInfo.js  -->
-                        <!-- <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="saveDevice()">Save This Device</button> -->
-                        <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="saveDeviceToDB()">Save This Device</button>
+                        <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_addExit_fault_raw" onclick="saveDeviceToDB(1)">Save And Finish</button>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="align-bottom">
+                        </div>
+                        <!-- <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="addRow('tbl_fault')"> Add Device to Repaired Table</button> -->
+
+                        <!-- saveDeviceToDB -> scriptWorkshopInfo.js  -->
+                        <Button type="button" class="btn btn-info btn-lg btn-block" id="btn_add_fault_raw" onclick="saveDeviceToDB(0)">Save and ADD another</button>
                     </div>
                 </div>
 
@@ -287,7 +298,7 @@ function loadOptions($c, $sql, $item)
                 </div>
                 <div class="form-group">
                     <label for="tbl_fault">Faults and Errors</label>
-                    <table class="table table-striped" id="tbl_fault" name="tbl_fault">
+                    <table class="table table-striped " id="tbl_fault" name="tbl_fault">
                         <tr id="0">
                             <th>#</th>
                             <th>Device</th>
@@ -302,13 +313,53 @@ function loadOptions($c, $sql, $item)
                             <th>Status</th>
                         </tr>
                         <tbody id="tbody_fault">
+
+
+
+
+
+
+
+                            <?php
+                            // session_start();
+                            include("conn.php");
+
+
+                            $ws_id_task_hid = $_SESSION["nc_ws_id"];
+                            $task_id_task_hid = $_SESSION["task_id"];
+
+                            // $job_id=$_POST['job_id'];
+
+                            $sql = "SELECT device,brand,mfd,ecv,inventory,serial,fault,status,other FROM task WHERE ws_id=$ws_id_task_hid AND task_id=$task_id_task_hid";
+                            $result = $conn->query($sql);
+                            $count = 1;
+                            while ($row = mysqli_fetch_array($result)) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $count; ?> </td>
+                                    <td><?php echo $row["device"]; ?> </td>
+                                    <td><?php echo $row["brand"]; ?> </td>
+                                    <td><?php echo $row["mfd"]; ?> </td>
+                                    <td><?php echo $row["ecv"]; ?> </td>
+                                    <td><?php echo $row["inventory"]; ?> </td>
+                                    <td><?php echo $row["serial"]; ?> </td>
+                                    <td><?php echo $row["status"]; ?> </td>
+                                    <td><?php echo $row["other"]; ?> </td>
+
+
+                                </tr>
+                            <?php
+                                $count = $count + 1;
+                            }
+                            // mysqli_close($link);
+
+                            ?>
+
+
                         </tbody>
                     </table>
                 </div>
-                <div class="form-group">
-                    <label for="inputAddress2">Special Notes</label>
-                    <input type="text" class="form-control" id="sp_notes" placeholder="Add special notes">
-                </div>
+
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <div class="align-bottom">
@@ -324,10 +375,10 @@ function loadOptions($c, $sql, $item)
 
                     </div>
                 </div>
-        </div>
 
-        </form>
-    </div>
+
+            </form>
+        </div>
 
 
 

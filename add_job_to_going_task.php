@@ -29,7 +29,7 @@ if (isset($_SESSION['username'])) {
 </head>
 
 <body>
-<script src="./js/scriptAddJobOGT.js"></script>
+    <script src="./js/scriptAddJobOGT.js"></script>
     <div class="container-fluid">
         <div id="nav-placeholder"> </div>
 
@@ -42,76 +42,76 @@ if (isset($_SESSION['username'])) {
 
         <br>
 
-        <div class="container">
-            <div class="row">
+        <div class="container-fluid">
+            <h2>
+                Add new JOB to ON-GOING task
+            </h2>
+            <form>
+                <div class="row">
 
-                <div class="form-group col-md-3 p-3">
-                    <select class="form-control" id="ws_id" name="ws_id" onchange="loadTaskSo()">
-                        <option value="*"> Select Workshop</option>
+                    <div class="form-group col-md-4 p-3">
+                        <select class="form-control" id="ws_id" name="ws_id" onchange="loadTaskSo()">
+                            <option value="*"> Select Workshop</option>
 
-                        <?php
-                        $sql = "SELECT DISTINCT workshop.ws_id,workshop.id
+                            <?php
+                            $sql = "SELECT DISTINCT workshop.ws_id,workshop.id
                          FROM workshop
-                         INNER JOIN task_school ON task_school.ws_id=workshop.id and task_school.st=0 and task_school.user='$user'";
-                        $x = load_val($sql);
-                        // print_r($x);
-                        
-                        foreach ($x as $row) {
-                            print_r($row);
-                        ?>
-                            <option value="<?php echo $row["id"]; ?>"><?php echo $row["ws_id"]; ?></option>
-                        <?php
-                        }
-                        ?>
+                         INNER JOIN task_school ON task_school.ws_id=workshop.id and task_school.st=0 and task_school.user='$user' AND task_school.st=0";
+                            $x = load_val($sql);
+                            // print_r($x);
 
-                    </select>
-                </div>
-                <div class="form-group col-md-3 p-3">
-                    <select class="form-control" id="task_id" name="task_id" onchange="filterTable()">
-                    <option value="1">Select Task ID</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-3 p-3">
-                    <select class="form-control" id="ws-id" name="ws-id">
-                        <option> Select Workshop</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-3 p-3">
-                    <select class="form-control" id="ws-id" name="ws-id">
-                        <option> Select Workshop</option>
-                    </select>
-                </div>
+                            foreach ($x as $row) {
+                                print_r($row);
+                            ?>
+                                <option value="<?php echo $row["id"]; ?>"><?php echo $row["ws_id"]; ?></option>
+                            <?php
+                            }
+                            ?>
 
-
-
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover" id="all_task_table" name="all_task_table">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>#id</th>
-                                    <th>WS id</th>
-                                    <th>School</th>
-                                    <th>Task ID</th>
-                                    <th>Coordinator</th>
-                                    <th>Status</th>
-
-                                </tr>
-                            </thead>
-                            <tbody id="tbody_all_task_table" name="tbody_all_task_table">
-                                <?php $sql = "SELECT * FROM task_school where user='$user'";
-                                loadTable($sql);
-
-                                ?>
-                            </tbody>
-                        </table>
+                        </select>
                     </div>
+                    <div class="form-group col-md-4 p-3">
+                        <select class="form-control" id="task_id" name="task_id" onchange="filterTable()">
+                            <option value="*">Select Task ID</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4 p-3">
+
+                        <div class="d-grid gap-2 col-12 mx-auto">
+                            <button class="btn btn-danger" type="button" id="btn_add_job_to_task" onclick="passData()">Add new JOB to this task</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="all_task_table" name="all_task_table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#id</th>
+                                <th>WS id</th>
+                                <th>School</th>
+                                <th>Task ID</th>
+                                <th>Coordinator</th>
+                                <th>Status</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_all_task_table" name="tbody_all_task_table">
+                            <?php $sql = "SELECT * FROM task_school where user='$user' AND st=0";
+                            loadTable($sql);
+
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 

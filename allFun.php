@@ -15,6 +15,7 @@ function load_val($sql)
 
 function loadTable($sq)
 {
+    
     global $conn;
     $res = $conn->query($sq);
 
